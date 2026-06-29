@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">Movie</div>
+            <ul class="nav-links">
+             <li><a href="#">Home</a></li>
+             <li><a href="#">Movies</a></li>
+             <li><a href="#">Series</a></li>
+             <li><a href="#">Trending</a></li>
+             <li><a href="#">My List</a></li>
+            </ul>
+            <button class="btn" id="sign-in">Sign In</button>
+        </nav>
+    </header>
+
+    <!-- Practice Modal -->
+    <div class="modal-wrapper" id="modal-wrapper">
+        <div class="modal" id="modal">
+            <span class="close-btn">&times;</span>
+        
+            <h2>Admin Login</h2>
+        
+            <form id="loginForm">
+                <div class="input-group">
+                    <label>Email or Username</label>
+                    <input type="text" id="identifier" placeholder="Enter your email or username" required>
+                </div>
+        
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Enter password" required>
+                </div>
+        
+                <button type="submit" id="login">Login</button>
+        
+                <p id="message"></p>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="content">
+            <h1>Unlimited Movies, TV Shows and More</h1>
+            <p>Watch anywhere. Cancel anytime.</p>
+            <button>Watch Now</button>
+        </div>
+    </section>
+
+    <!-- Popular Movies -->
+    <section class="movies">
+        <h2>Popular Movies</h2>
+
+        <div class="movie-container" id="movieContainer">
+
+            <div class="loader" id="loading"></div>
+
+            <p class="load-error" id="loadError">Unable to load movies</p>
+
+
+            <!-- <div class="card">
+                <img src="https://picsum.photos/300/400?1" alt="">
+                <h3>Avengers Endgame</h3>
+            </div>
+
+            <div class="card">
+                <img src="https://picsum.photos/300/400?2" alt="">
+                <h3>John Wick</h3>
+            </div>
+
+            <div class="card">
+                <img src="https://picsum.photos/300/400?3" alt="">
+                <h3>Batman</h3>
+            </div>
+
+            <div class="card">
+                <img src="https://picsum.photos/300/400?4" alt="">
+                <h3>Interstellar</h3>
+            </div> -->
+
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <h2>Browse By Category</h2>
+
+        <div class="category-boxes">
+            <div class="box">Action</div>
+            <div class="box">Comedy</div>
+            <div class="box">Horror</div>
+            <div class="box">Sci-Fi</div>
+            <div class="box">Drama</div>
+            <div class="box">Animation</div>
+        </div>
+    </section>
+
+   
+    <script src="index.js"></script>
+</body>
+</html>
