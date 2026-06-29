@@ -9,7 +9,7 @@ const fetchMovies = async () => {
     loading.style.display = "block";
     loadError.style.display = "none";
 
-    const res = await fetch("http://localhost:3000/api/movies", {
+    const res = await fetch("https://fayfay-movie.onrender.com/api/movies", {
       method: "GET",
       credentials: "include",
     });
