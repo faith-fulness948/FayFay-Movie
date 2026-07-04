@@ -53,52 +53,230 @@ document.addEventListener("DOMContentLoaded", fetchMovies)
 
 
 // Sign in form pop-up logic 
-const signIn = document.querySelector("#sign-in");
-const login = document.querySelector("#login")
+const signUp = document.querySelector("#sign-up");
+const loginForm = document.querySelector("#loginForm")
 const modalWrapper = document.querySelector("#modal-wrapper");
-const modal = document.querySelector("#modal");
-const identifier = document.querySelector("#identifier").value.trim();
-const password = document.querySelector("#password").value;
-const message = document.querySelector("#message")
+const loginMessage = document.querySelector("#login-message")
 
 
+loginForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
+  const identifier = document.querySelector("#identifier").value.trim();
+  const password = document.querySelector("#password").value;
+  
+  const response = await fetch("http://localhost:3000/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      identifier: identifier,
+      password: password
+    })
+  });
+
+  const data = await response.json();
+
+  if (data.success) {
+    alert("Successfully logged in");
+    loginForm.reset()
+    
+  } else {
+    alert("Invalid credentials");
+  }
+});
+
+const loginPassword = document.querySelector("#password");
+const toggleLoginPassword = document.querySelector("#toggleLoginPassword");
+
+const loginIcon = toggleLoginPassword.querySelector("i");
+
+toggleLoginPassword.addEventListener("click", () => {
+
+  if (loginPassword.type === "password") {
+    loginPassword.type = "text";
+    loginIcon.classList.replace("fa-eye", "fa-eye-slash");
+  } else {
+      loginPassword.type = "password";
+      loginIcon.classList.replace("fa-eye-slash", "fa-eye");
+    }
+});
+
+const signupForm = document.querySelector("#signupForm");
+const signupMessage = document.querySelector("#signup-message");
+
+signupForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const username = document.querySelector("#username").value.trim();
+    const email = document.querySelector("#email").value.trim();
+    const password = document.querySelector("#pass-word").value;
+
+    // Reset message
+    signupMessage.style.display = "block";
+
+    // Username validation
+    if (username.length < 3) {
+        signupMessage.textContent = "Username must be at least 3 characters";
+        signupMessage.style.color = "red";
+        return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+        signupMessage.textContent = "Enter a valid email address";
+        signupMessage.style.color = "red";
+        return;
+    }
+
+    // Password validation
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/;
+
+    if (!passwordRegex.test(password)) {
+        signupMessage.textContent = "Password must contain uppercase, number and special character";
+        signupMessage.style.color = "red";
+        return;
+    }
+
+    // If everything passes
+    try {
+        const response = await fetch("http://localhost:3000/api/auth/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: username,
+                email: email,
+                password: password
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            signupMessage.textContent = "Signup successful!";
+            signupMessage.style.color = "green";
+
+            signupForm.reset();
+
+            setTimeout(() => {
+                signupMessage.style.display = "none";
+            }, 3000);
+
+        } else {
+            signupMessage.textContent = data.message || "Signup failed";
+            signupMessage.style.color = "red";
+        }
+
+    } catch (error) {
+        signupMessage.textContent = "Something went wrong";
+        signupMessage.style.color = "red";
+        console.error(error);
+    }
+});
+
+const signupPassword = document.querySelector("#pass-word");
+const toggleSignupPassword = document.querySelector("#toggleSignupPassword");
+
+const signupIcon = toggleSignupPassword.querySelector("i");
+
+toggleSignupPassword.addEventListener("click", () => {
+
+    if (signupPassword.type === "password") {
+        signupPassword.type = "text";
+
+        // change eye → eye slash
+        signupIcon.classList.replace("fa-eye", "fa-eye-slash");
+
+    } else {
+        signupPassword.type = "password";
+
+        // change eye slash → eye
+        signupIcon.classList.replace("fa-eye-slash", "fa-eye");
+    }
+
+});
+const modalLogin = document.querySelector("#modal-login");
+const modalSignup = document.querySelector("#modal-signup")
+
+const signIn = document.querySelector("#sign-in");
 signIn.addEventListener("click", () => {
     modalWrapper.style.display = "block"; 
-    modal.classList.add("popup-animate");
+    modalSignup.style.display = "none";
+    modalLogin.style.display = "block"
+    modalLogin.classList.add("popup-animate");
 })
 
+signUp.addEventListener("click", () =>{
+  modalWrapper.style.display = "block";
+  modalLogin.style.display = 'none';
+  modalSignup.style.display = "block"
+  modalSignup.classList.add("popup-animate")
+})
 
+const loginBtn = document.querySelector("#login")
+loginBtn.addEventListener("click", () => {
+  const identifier = document.querySelector("#identifier").value.trim();
+  const password = document.querySelector("#password").value;
+  if (!password || !identifier) {
+    loginMessage.textContent = "Please fill in all fields.";
+    loginMessage.style.display = "block";
 
-login.addEventListener("click", () => {
-    if (!password || !identifier) {
-        message.textContent = "Please fill in all fields.";
-        message.style.display = "block";
-
-        setTimeout(() => {
-            message.style.display = "none";
+    setTimeout(() => {
+        loginMessage.style.display = "none";
         
-        }, 4000);
+    }, 4000);
 
 
-        return;
-    } 
-    
-    login()
+    return;
+  } 
 })
 
+const signupTrigger = document.querySelector("#signup-trigger");
+
+signupTrigger.addEventListener("click", () => {
+  modalWrapper.style.display = "block";
+  modalLogin.style.display = 'none';
+  modalSignup.style.display = "block"
+  modalSignup.classList.add("popup-animate")
+  
+});
+
+const loginTrigger = document.querySelector("#login-trigger");
+
+loginTrigger.addEventListener("click", () => {
+  modalWrapper.style.display = "block";
+  modalSignup.style.display = 'none';
+  modalLogin.style.display = "block"
+  modalLogin.classList.add("popup-animate")
+  
+});
 
 
 
-
-// close modal
-const closeBtn = document.querySelector(".close-btn");
-
-closeBtn.addEventListener("click", () => {
+function closeAllModals() {
     modalWrapper.style.display = "none";
-    modal.classList.add("popdown-animate")
-    
-})
+    modalLogin.style.display = "none";
+    modalSignup.style.display = "none";
+
+    modalLogin.classList.remove("popup-animate");
+    modalSignup.classList.remove("popup-animate");
+
+    modalLogin.classList.remove("popdown-animate");
+    modalSignup.classList.remove("popdown-animate");
+
+    signupForm.reset()
+};
+
+const signupCloseBtn = document.querySelector("#signupCloseBtn");
+signupCloseBtn.addEventListener("click", closeAllModals)
+
+const loginCloseBtn = document.querySelector("#loginCloseBtn");
+loginCloseBtn.addEventListener("click", closeAllModals)
 
 // Fetch movies
 

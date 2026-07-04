@@ -179,6 +179,26 @@ nav button{
     border-radius: 8px;
 }
 
+.password-container{
+    position: relative;
+    width: 100%;
+}
+
+.password-container input{
+    width: 100%;
+    padding: 14px;
+    padding-right: 45px;   /* space for eye */
+}
+
+.eye{
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    user-select: none;
+    font-size: 18px;
+}
 .modal button{
     width: 100%;
     padding: 14px;
@@ -190,11 +210,29 @@ nav button{
     font-size: 1rem;
 }
 
-#message{
+#modal-signup {
+    display: none;
+}
+.message{
     margin-top: 15px;
     text-align: center;
     display: none;
 }
+
+.small {
+    display: flex;
+    padding: 5px;
+    margin: 5px;
+    justify-content: center;
+}
+
+small a {
+    text-decoration: none;
+    color: var(--primary-red);
+    cursor: pointer;
+    margin-left: 5px;
+} 
+
 
 /* Movies */
 .movies{
