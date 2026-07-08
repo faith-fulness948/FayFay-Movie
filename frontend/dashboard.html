@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard | Movie</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <h2 class="logo">
+            Movie<span>.</span>
+        </h2>
+
+        <ul>
+
+            <li class="active">
+                <a href="#">🏠 Dashboard</a>
+            </li>
+
+            <li>
+                <a href="#">🎬 Discover Movies</a>
+            </li>
+
+            <li>
+                <a href="#">⭐ My Watchlist</a>
+            </li>
+
+            <li>
+                <a href="#">❤️ Favorites</a>
+            </li>
+
+            <li>
+                <a href="#">🕒 Recently Viewed</a>
+            </li>
+
+            <li>
+                <a href="#">👤 Profile</a>
+            </li>
+
+            <li>
+                <a href="#">⚙ Settings</a>
+            </li>
+
+            <li>
+                <a href="#">🚪 Logout</a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+
+        <!-- Header -->
+        <header class="topbar">
+
+            <div>
+
+                <h1>
+                    Welcome back,
+                    <span id="username">Faith</span> 👋
+                </h1>
+
+                <p>
+                    Discover the latest movies and keep track of your favourites.
+                </p>
+
+            </div>
+
+            <div class="profile">
+
+                <img src="profile.jpg" alt="Profile">
+
+            </div>
+
+        </header>
+
+        <!-- Search -->
+        <section class="search-section">
+
+            <input
+                type="text"
+                placeholder="Search movies..."
+                id="search">
+
+        </section>
+
+        <!-- Stats -->
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <h3>Saved Movies</h3>
+
+                <h2 id="savedCount">12</h2>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h3>Favorites</h3>
+
+                <h2 id="favoriteCount">8</h2>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h3>Recently Viewed</h3>
+
+                <h2 id="historyCount">16</h2>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h3>Recommended</h3>
+
+                <h2>20+</h2>
+
+            </div>
+
+        </section>
+
+        <!-- Continue Browsing -->
+        <section>
+
+            <h2 class="section-title">
+                Continue Browsing
+            </h2>
+
+            <div class="movie-row">
+
+                <div class="movie-card">
+
+                    <img src="https://picsum.photos/250/340?1">
+
+                    <h3>Avatar</h3>
+
+                    <button>View Details</button>
+
+                </div>
+
+                <div class="movie-card">
+
+                    <img src="https://picsum.photos/250/340?2">
+
+                    <h3>Wednesday</h3>
+
+                    <button>View Details</button>
+
+                </div>
+
+                <div class="movie-card">
+
+                    <img src="https://picsum.photos/250/340?3">
+
+                    <h3>Superman</h3>
+
+                    <button>View Details</button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Watchlist -->
+        <section>
+
+            <h2 class="section-title">
+
+                ⭐ My Watchlist
+
+            </h2>
+
+            <div id="watchlist" class="movie-row">
+
+            </div>
+
+        </section>
+
+        <!-- Favorites -->
+        <section>
+
+            <h2 class="section-title">
+
+                ❤️ Favorite Movies
+
+            </h2>
+
+            <div id="favorites" class="movie-row">
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="dashboard.js"></script>
+
+</body>
+</html>

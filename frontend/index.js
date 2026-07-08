@@ -9,7 +9,7 @@ const fetchMovies = async () => {
     loading.style.display = "block";
     loadError.style.display = "none";
 
-    const res = await fetch("http://localhost:3000/api/movies", {
+    const res = await fetch("https://fayfay-movie.onrender.com/api/movies", {
       method: "GET",
       credentials: "include",
     });
@@ -25,13 +25,47 @@ const fetchMovies = async () => {
 
     // 3. Render HTML safely
     movieContainer.innerHTML = movies.map(movie => `
-      <div class="card">
-        <h3>${movie.title}</h3>
-        <p class="movie-year">${movie.year}</p>
-        <p class="movie-genre">${movie.genre}</p>
-        <p class="actors"><strong>Actors:</strong> ${movie.actors.join(", ")}</p>
-        <p class="synopsis">${movie.synopsis}</p>
+    <div class="card">
+
+      <img src="${movie.poster}" alt="${movie.title}">
+
+      <span class="movie-year">${movie.year}</span>
+
+      <h3>${movie.title}</h3>
+
+      <p>${movie.genre}</p>
+
+      <p>${movie.synopsis}</p>
+
+      <p><strong>Actors:</strong>${movie.actors}</p>
+
+      <div class="movie-buttons">
+
+        <a href="${movie.watchLink}" target="_blank">
+            <button class="watch-btn">
+                Watch
+            </button>
+        </a>
+
+        <button
+            class="save-btn"
+            onclick="addToWatchlist('${movie._id}')">
+
+            ⭐ Watchlist
+
+        </button>
+
+        <button
+            class="fav-btn"
+            onclick="addToFavorites('${movie._id}')">
+
+            ❤️ Favorite
+
+        </button>
+
       </div>
+
+    </div>
     `).join("");
 
   } catch (error) {
@@ -46,6 +80,93 @@ const fetchMovies = async () => {
 
 
 document.addEventListener("DOMContentLoaded", fetchMovies)
+
+async function addToWatchlist(movieId){
+
+    try{
+
+        const res = await fetch(
+
+            "http://localhost:3000/api/watchlist",
+
+            {
+
+                method:"POST",
+
+                credentials:"include",
+
+                headers:{
+
+                    "Content-Type":"application/json"
+
+                },
+
+                body:JSON.stringify({
+
+                    movieId
+
+                })
+
+            }
+
+        );
+
+        const data = await res.json();
+
+        alert(data.message);
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
+async function addToFavorites(movieId){
+
+    try{
+
+        const res = await fetch(
+
+            "http://localhost:3000/api/favorites",
+
+            {
+
+                method:"POST",
+
+                credentials:"include",
+
+                headers:{
+
+                    "Content-Type":"application/json"
+
+                },
+
+                body:JSON.stringify({
+
+                    movieId
+
+                })
+
+            }
+
+        );
+
+        const data = await res.json();
+
+        alert(data.message);
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
 
 
 // console.log(fetchMovies());
@@ -65,8 +186,9 @@ loginForm.addEventListener("submit", async (e) => {
   const identifier = document.querySelector("#identifier").value.trim();
   const password = document.querySelector("#password").value;
   
-  const response = await fetch("http://localhost:3000/api/auth/login", {
+  const response = await fetch("https://fayfay-movie.onrender.com/api/auth/login", {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json"
     },
@@ -143,7 +265,7 @@ signupForm.addEventListener("submit", async (e) => {
 
     // If everything passes
     try {
-        const response = await fetch("http://localhost:3000/api/auth/signup", {
+        const response = await fetch("https://fayfay-movie.onrender.com/api/auth/signup", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
