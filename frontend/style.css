@@ -283,6 +283,7 @@ small a {
     top: 0;
     background-color: var(--primary-red);
     border-radius: 20px;
+    padding: 5px;
     font-size: smaller;
 }
 
@@ -331,4 +332,72 @@ small a {
 
 .box:hover{
     background:#e50914;
+}
+
+.movie-buttons{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    padding:15px;
+
+}
+
+.watch-btn{
+
+    background:#e50914;
+
+    color:white;
+
+    border:none;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+.save-btn{
+
+    background:#222;
+
+    color:white;
+
+    border:none;
+
+    padding:12px;
+
+    cursor:pointer;
+
+    border-radius:8px;
+
+}
+
+.fav-btn{
+
+    background:#333;
+
+    color:white;
+
+    border:none;
+
+    padding:12px;
+
+    cursor:pointer;
+
+    border-radius:8px;
+
+}
+
+.watch-btn:hover,
+.save-btn:hover,
+.fav-btn:hover{
+
+    transform:scale(1.02);
+
 }

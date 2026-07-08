@@ -1,10 +1,14 @@
 import express from 'express'; // importing the express framework
 import "dotenv/config" // parsing environment variables
 import cors from "cors"; // cross-origin sharing
+import cookieparser from "cookie-parser"
 import colors from 'colors' // adding colors to the terminal
 import connectDB from './config/connectDB.js'; // database connection
 import movieRouter from './routes/movie.route.js'; // movie routes import
 import authRouter from './routes/auth.route.js'; // auth routes import
+import dashboardRouter from './routes/dashboard.route.js';
+import watchlistRoutes from './routes/watchlist.route.js';
+import favoriteRoutes from './routes/favorite.route.js';
 
 
 
@@ -19,11 +23,15 @@ app.use(cors({
     optionsSuccessStatus: 200
 }))
 app.use(express.json()); // parsing JSON object to the server
+app.use(cookieparser())
 
 // Routes
 app.use("/", express.static('public')); // Root Route
 app.use("/api/movies", movieRouter); // Movie Route
 app.use("/api/auth", authRouter); // Auth route
+app.use("/api/dashboard", dashboardRouter); // Dashboard route
+app.use("/api/watchlist", watchlistRoutes); // Watchlist route
+app.use("/api/favorites", favoriteRoutes); // Favorite route
 
 // Route Error 404 handler 
 app.use((req, res) => {
