@@ -22,8 +22,9 @@ app.use(cors({
     credentials: true,
     optionsSuccessStatus: 200
 }))
-app.use(express.json()); // parsing JSON object to the server
 app.use(cookieparser())
+app.use(express.json()); // parsing JSON object to the server
+
 
 // Routes
 app.use("/", express.static('public')); // Root Route
