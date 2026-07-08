@@ -65,7 +65,7 @@ loginForm.addEventListener("submit", async (e) => {
   const identifier = document.querySelector("#identifier").value.trim();
   const password = document.querySelector("#password").value;
   
-  const response = await fetch("http://localhost:3000/api/auth/login", {
+  const response = await fetch("https://fayfay-movie.onrender.com/api/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -143,7 +143,7 @@ signupForm.addEventListener("submit", async (e) => {
 
     // If everything passes
     try {
-        const response = await fetch("http://localhost:3000/api/auth/signup", {
+        const response = await fetch("https://fayfay-movie.onrender.com/api/auth/signup", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
