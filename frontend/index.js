@@ -87,7 +87,7 @@ async function addToWatchlist(movieId){
 
         const res = await fetch(
 
-            "http://localhost:3000/api/watchlist", "https://fayfay-movie.onrender.com/api/watchlist",
+            "http://localhost:3000/api/watchlist",
 
             {
 
@@ -130,7 +130,7 @@ async function addToFavorites(movieId){
 
         const res = await fetch(
 
-            "http://localhost:3000/api/favorites", "https://fayfay-movie.onrender.com/api/favorites",
+            "http://localhost:3000/api/favorites",
 
             {
 
