@@ -270,6 +270,7 @@ function closeAllModals() {
     modalSignup.classList.remove("popdown-animate");
 
     signupForm.reset()
+    loginForm.reset()
 };
 
 const signupCloseBtn = document.querySelector("#signupCloseBtn");
