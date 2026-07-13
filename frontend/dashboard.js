@@ -204,7 +204,7 @@ async function fetchDashboard() {
     try {
 
         const res = await fetch(
-            "http://localhost:3000/api/dashboard",
+            "https://fayfay-movie.onrender.com/api/dashboard",
             {
                 credentials: "include"
             }
