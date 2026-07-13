@@ -111,7 +111,7 @@ function renderFavorites() {
 
 function removeWatchlist(id){
 
-    watchlist = watchlist.filter(movie => movie._id !== id);
+   const watchlist = watchlist.filter(movie => movie._id !== id);
 
     renderWatchlist();
 
@@ -125,7 +125,7 @@ function removeWatchlist(id){
 
 function removeFavorite(id){
 
-    favorites = favorites.filter(movie => movie._id !== id);
+    const favorites = favorites.filter(movie => movie._id !== id);
 
     renderFavorites();
 
@@ -212,9 +212,9 @@ async function fetchDashboard() {
 
         const data = await res.json();
 
-        watchlist = data.dashboard.watchlist.map(item => item.movie);
+        const watchlist = data.dashboard.watchlist.map(item => item.movie);
 
-        favorites = data.dashboard.favorites.map(item => item.movie);
+        const favorites = data.dashboard.favorites.map(item => item.movie);
 
         updateStats();
 
