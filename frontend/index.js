@@ -199,13 +199,19 @@ loginForm.addEventListener("submit", async (e) => {
   });
 
   const data = await response.json();
+  console.log(data);
+  
 
   if (data.success) {
     localStorage.setItem("user", JSON.stringify(data.data.user));
+    console.log(localStorage.getItem("user"));
+    
+
+    alert("Successfully logged in");
+
+    loginForm.reset();
 
     window.location.href = "/dashboard.html";
-    alert("Successfully logged in");
-    loginForm.reset()
     
   } else {
     alert("Invalid credentials");
