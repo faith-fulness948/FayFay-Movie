@@ -2,11 +2,48 @@
 // Logged-in User
 // =========================
 
-const user = JSON.parse(localStorage.getItem("user"));
+async function loadUser() {
+    
+    try {
+        
+        const res = await fetch(
+            "https://fayfay-movie.onrender.com/api/auth/me",
+            {
+                credentials: "include"
+            }
+        );
+        
+        const data = await res.json();
+        
+        if (!data.success) {
+            
+            window.location.href = "/index.html";
+            return;
+            
+        }
+        
+        document.getElementById("username").textContent = data.user.username;
+        
+        // Disallow unverified user
+        if (!data.user.isVerified) {
+        
+            alert("Please verify your account.");
+        
+            window.location.href = "/index.html";
+        
+        }
 
-if (user) {
-    document.getElementById("username").textContent = user.username;
+    } catch (error) {
+
+        console.error(error);
+
+        window.location.href = "/index.html";
+
+    }
+
 }
+
+loadUser();
 
 // =========================
 // Dashboard Data
