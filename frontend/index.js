@@ -203,7 +203,7 @@ loginForm.addEventListener("submit", async (e) => {
   
 
   if (data.success) {
-    localStorage.setItem("user", JSON.stringify(data.data.user));
+    localStorage.setItem("user", JSON.stringify(data.data.user.username));
     console.log(localStorage.getItem("user"));
     
 
