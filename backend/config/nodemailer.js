@@ -11,6 +11,14 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+transporter.verify((error, success) => {
+    if (error) {
+        console.error("Verify Error:", error);
+    } else {
+        console.log("SMTP Server is ready.");
+    }
+});
+
 console.log("EMAIL_USER:", process.env.EMAIL_USER);
 console.log("EMAIL_PASSWORD exists:", !!process.env.EMAIL_PASSWORD);
 
@@ -30,7 +38,13 @@ const sendEmail = async (mailOptions) => {
             ...mailOptions,
         }
 
+        console.log("About to send email...");
+
         const info = await transporter.sendMail(finalOptions);
+
+        console.log("sendMail finished.");
+
+        console.log(info);
         console.log("Email Successful:", info.messageId);
     } catch (error) {
         console.error("Email Error:", error);       
