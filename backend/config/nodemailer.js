@@ -11,6 +11,9 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+console.log("EMAIL_USER:", process.env.EMAIL_USER);
+console.log("EMAIL_PASSWORD exists:", !!process.env.EMAIL_PASSWORD);
+
 // const mailOptions = {
 //     from: `MongoDB_Class <${process.env.NODEMAILER_USER}`,
 //     to: "ayodejiaronimo@gmail.com",
@@ -21,6 +24,7 @@ const transporter = nodemailer.createTransport({
 
 const sendEmail = async (mailOptions) => {
     try {
+        console.log("Sending email to:", mailOptions.to);
         const finalOptions = {
             from: `MongoDB_Class <${process.env.EMAIL_USER}>`,
             ...mailOptions,

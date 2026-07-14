@@ -3,6 +3,7 @@ import { resetPasswordTemplate, sendVerificationTemplate, verificationSuccessful
 
 // send verification email helper function
 export const sendVerificationEmail = async (username, email, verificationToken) => {
+    console.log("sendVerificationEmail called");
     const mailOptions = {
         to: email,
         subject: "Verify Your Email",
