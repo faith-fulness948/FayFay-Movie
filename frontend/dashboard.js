@@ -20,7 +20,7 @@ async function loadUser() {
             return;
             
         }
-        
+
         document.getElementById("username").textContent = data.user.username;
         
         // Disallow unverified user
