@@ -6,7 +6,7 @@ verifyForm.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
-    const verificationToken = document.getElementById("verificationToken").value.trim();
+    const code = document.getElementById("verificationToken").value.trim();
     try {
 
         const response = await fetch(
@@ -20,7 +20,7 @@ verifyForm.addEventListener("submit", async (e) => {
 
                 body: JSON.stringify({
                     email: email,
-                    verificationToken: verificationToken
+                    verificationToken: code
                 })
             }
         );
