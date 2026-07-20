@@ -19,7 +19,7 @@ verifyForm.addEventListener("submit", async (e) => {
                 },
 
                 body: JSON.stringify({
-                    verificationToken: code
+                    code: code
                 })
             }
         );
