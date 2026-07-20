@@ -6,9 +6,7 @@ verifyForm.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
-    const verificationToken =
-        document.getElementById("verificationToken").value.trim();
-
+    const verificationToken = document.getElementById("verificationToken").value.trim();
     try {
 
         const response = await fetch(
