@@ -1,12 +1,16 @@
 const verifyForm = document.getElementById("verifyForm");
 
-const email = localStorage.getItem("verificationEmail");
-
 verifyForm.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
-    const code = document.getElementById("verificationToken").value.trim();
+    const code = document
+        .getElementById("verificationToken")
+        .value
+        .trim();
+
+    console.log("Code from input:", code);
+
     try {
 
         const response = await fetch(
@@ -26,11 +30,11 @@ verifyForm.addEventListener("submit", async (e) => {
 
         const data = await response.json();
 
+        console.log("Response:", data);
+
         if (data.success) {
 
             alert("Email verified successfully!");
-
-            localStorage.removeItem("verificationEmail");
 
             window.location.href = "/index.html";
 
@@ -42,9 +46,7 @@ verifyForm.addEventListener("submit", async (e) => {
 
     } catch (error) {
 
-        console.error(error);
-
-        alert("Something went wrong.");
+        console.error("Verification error:", error);
 
     }
 
