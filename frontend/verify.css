@@ -1,0 +1,243 @@
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+body {
+    min-height: 100vh;
+
+    font-family: Arial, sans-serif;
+
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.75),
+            rgba(0, 0, 0, 0.9)
+        ),
+        url("your-movie-background.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    color: white;
+}
+
+
+/* =========================
+   PAGE
+========================= */
+
+.verify-page {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.verify-card {
+    width: 100%;
+    max-width: 430px;
+
+    padding: 45px 35px;
+
+    text-align: center;
+
+    background: rgba(20, 20, 20, 0.9);
+
+    border: 1px solid rgba(255, 107, 53, 0.25);
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.logo {
+    margin-bottom: 30px;
+
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.logo span span {
+    color: #ff6b35;
+}
+
+
+/* =========================
+   HEADING
+========================= */
+
+.verify-card h1 {
+    margin-bottom: 15px;
+
+    font-size: 30px;
+}
+
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.verify-card > p {
+    margin-bottom: 30px;
+
+    color: #bdbdbd;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+#verifyForm {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+/* =========================
+   INPUT
+========================= */
+
+#verificationCode {
+    width: 100%;
+
+    padding: 16px;
+
+    background: #292929;
+
+    border: 1px solid #444;
+
+    border-radius: 6px;
+
+    color: white;
+
+    font-size: 22px;
+
+    text-align: center;
+
+    letter-spacing: 8px;
+
+    outline: none;
+}
+
+#verificationCode:focus {
+    border-color: #ff6b35;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+button {
+    width: 100%;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: #ff6b35;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #e85b2b;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   LOGIN LINK
+========================= */
+
+.back-login {
+    margin-top: 25px !important;
+
+    font-size: 14px;
+}
+
+.back-login a {
+    color: #ff6b35;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+@media (max-width: 600px) {
+
+    .verify-page {
+        padding: 16px;
+    }
+
+    .verify-card {
+        padding: 35px 22px;
+    }
+
+    .verify-card h1 {
+        font-size: 25px;
+    }
+
+    .verify-card > p {
+        font-size: 14px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    #verificationCode {
+        font-size: 18px;
+        letter-spacing: 5px;
+    }
+
+    button {
+        padding: 14px;
+    }
+
+}

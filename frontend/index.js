@@ -283,6 +283,10 @@ signupForm.addEventListener("submit", async (e) => {
             signupMessage.textContent = "Signup successful!";
             signupMessage.style.color = "green";
 
+            localStorage.setItem("verificationEmail", email);
+
+            window.location.href = "/verify.html";
+
             signupForm.reset();
 
             setTimeout(() => {
