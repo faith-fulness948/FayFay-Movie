@@ -1,55 +1,25 @@
-import nodemailer from "nodemailer";
-// import "dotenv/config"
+import { Resend } from "resend";
 
-// Create a transporter
-
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD, // The 16-character App Password
-  },
-});
-
-transporter.verify((error, success) => {
-    if (error) {
-        console.error("Verify Error:", error);
-    } else {
-        console.log("SMTP Server is ready.");
-    }
-});
-
-console.log("EMAIL_USER:", process.env.EMAIL_USER);
-console.log("EMAIL_PASSWORD exists:", !!process.env.EMAIL_PASSWORD);
-
-// const mailOptions = {
-//     from: `MongoDB_Class <${process.env.NODEMAILER_USER}`,
-//     to: "ayodejiaronimo@gmail.com",
-//     subject: "Test Email from Nodemailer",
-//     text: "This is just a test!",
-//     html: `<h1>This is a test from stubborn Fayfay</h1>`,
-// }
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendEmail = async (mailOptions) => {
     try {
-        console.log("Sending email to:", mailOptions.to);
-        const finalOptions = {
-            from: `MongoDB_Class <${process.env.EMAIL_USER}>`,
-            ...mailOptions,
-        }
 
-        console.log("About to send email...");
+        const data = await resend.emails.send({
+            from: "FayFay Movie <onboarding@resend.dev>",
+            to: [mailOptions.to],
+            subject: mailOptions.subject,
+            html: mailOptions.html,
+        });
 
-        const info = await transporter.sendMail(finalOptions);
+        console.log("Email sent successfully:", data);
 
-        console.log("sendMail finished.");
-
-        console.log(info);
-        console.log("Email Successful:", info.messageId);
     } catch (error) {
-        console.error("Email Error:", error);       
+
+        console.error("Resend Error:", error);
+        throw error;
+
     }
-}
+};
 
 export default sendEmail;
-
