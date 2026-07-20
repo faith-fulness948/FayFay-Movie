@@ -293,6 +293,10 @@ signupForm.addEventListener("submit", async (e) => {
             signupMessage.style.color = "green";
 
             localStorage.setItem("verificationEmail", email);
+            console.log("Saved email:", localStorage.getItem("verificationEmail"));
+
+            console.log("Redirecting now...");
+
 
             window.location.href = "/verify.html";
 
