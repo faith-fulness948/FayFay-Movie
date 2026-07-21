@@ -62,6 +62,8 @@ export const signup = async (req, res) => {
 
         await savedUser.save();
 
+        await sendVerificationEmail(savedUser.username, savedUser.email, savedUser.verificationToken);
+
         // jwt
         const token = generateTokenAndSetCookie(res, savedUser._id);
 
@@ -99,9 +101,7 @@ export const signup = async (req, res) => {
                 user: userResponse,
             }
         });
-
-        // sending email
-        await sendVerificationEmail(savedUser.username, savedUser.email, savedUser.verificationToken);
+        
     } catch (error) {
         console.error("Sign up:", error);
 
