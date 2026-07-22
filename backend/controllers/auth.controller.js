@@ -62,7 +62,21 @@ export const signup = async (req, res) => {
 
         await savedUser.save();
 
-        await sendVerificationEmail(savedUser.username, savedUser.email, savedUser.verificationToken);
+        try {
+            await sendVerificationEmail(
+                savedUser.username,
+                savedUser.email,
+                savedUser.verificationToken
+            );
+        } catch (emailError) {
+
+            await User.findByIdAndDelete(savedUser._id);
+
+            return res.status(500).json({
+                success: false,
+                message: "We couldn't send the verification email. Please try signing up again."
+            });
+        }
 
         // jwt
         const token = generateTokenAndSetCookie(res, savedUser._id);
