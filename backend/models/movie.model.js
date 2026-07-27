@@ -16,6 +16,12 @@ const movieSchema = new mongoose.Schema(
             required: true,
         },
 
+        type: {
+            type: String,
+            enum: ["movie", "series"],
+            required: true
+        },
+
         // actors
         actors: {
             type: Array,
