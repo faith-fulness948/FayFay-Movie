@@ -27,44 +27,49 @@ const fetchMovies = async () => {
     movieContainer.innerHTML = movies.map(movie => `
     <div class="card">
 
-      <img src="${movie.poster}" alt="${movie.title}">
+        <span class="movie-year">${movie.year}</span>
 
-      <span class="movie-year">${movie.year}</span>
+        <h3>${movie.title}</h3>
 
-      <h3>${movie.title}</h3>
+        <p>${movie.genre}</p>
 
-      <p>${movie.genre}</p>
+        <p>${movie.synopsis}</p>
 
-      <p>${movie.synopsis}</p>
-
-      <p><strong>Actors:</strong>${movie.actors}</p>
+        <p><strong>Actors:</strong>${movie.actors.join(", ")}</p>
 
       <div class="movie-buttons">
 
-        <a href="${movie.watchLink}" target="_blank">
-            <button class="watch-btn">
-                Watch
+            <a href="${movie.trailerLink}" target="_blank">
+                <button class="watch-btn">
+                    Trailer
+                </button>
+            </a>
+
+            <button
+                class="watch-btn"
+                onclick="whereToWatch('${movie.title}')">
+
+                Where to Watch
+
             </button>
-        </a>
 
-        <button
-            class="save-btn"
-            onclick="addToWatchlist('${movie._id}')">
+            <button
+                class="save-btn"
+                onclick="addToWatchlist('${movie._id}')">
 
-            ⭐ Watchlist
+                ⭐ Watchlist
 
-        </button>
+            </button>
 
-        <button
-            class="fav-btn"
-            onclick="addToFavorites('${movie._id}')">
+            <button
+                class="fav-btn"
+                onclick="addToFavorites('${movie._id}')">
 
-            ❤️ Favorite
+                ❤️ Favorite
 
-        </button>
+            </button>
 
-      </div>
-
+        </div>
     </div>
     `).join("");
 
@@ -78,6 +83,10 @@ const fetchMovies = async () => {
   }
 };
 
+function whereToWatch(title) {
+    const url = `https://www.justwatch.com/ng/search?q=${encodeURIComponent(title)}`;
+    window.open(url, "_blank");
+}
 
 document.addEventListener("DOMContentLoaded", fetchMovies)
 
