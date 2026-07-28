@@ -88,18 +88,36 @@ const moviesLink = document.querySelector("#movies-link");
 const seriesLink = document.querySelector("#series-link");
 
 moviesLink.addEventListener("click", () => {
-  const moviesOnly = allMovies.filter(movie => movie.type === "movie");
+  const moviesOnly = allMovies.filter(movie => movie.type === "Movie");
 
   displayMovies(moviesOnly);
 });
 
 seriesLink.addEventListener("click", () => {
-  const seriesOnly = allMovies.filter(movie => movie.type === "series");
+  const seriesOnly = allMovies.filter(movie => movie.type === "Series");
 
   displayMovies(seriesOnly);
 });
 
 document.addEventListener("DOMContentLoaded", fetchMovies)
+
+const box = document.querySelectorAll(".box");
+
+box.forEach(card => {
+
+    card.addEventListener("click", () => {
+
+        const genre = card.dataset.genre;
+
+        const filteredMovies = allMovies.filter(movie =>
+            movie.genre === genre
+        );
+
+        displayMovies(filteredMovies);
+
+    });
+
+});
 
 async function addToWatchlist(movieId){
 
