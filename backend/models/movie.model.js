@@ -40,6 +40,11 @@ const movieSchema = new mongoose.Schema(
             type: String,
             maxLength: 200,
         },
+            // Official YouTube trailer
+        trailerLink: {
+            type: String,
+            required: true
+        },
 
     },
     {
