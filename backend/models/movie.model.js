@@ -18,7 +18,7 @@ const movieSchema = new mongoose.Schema(
 
         type: {
             type: String,
-            enum: ["movie", "series"],
+            enum: ["Movie", "Series"],
             required: true
         },
 
