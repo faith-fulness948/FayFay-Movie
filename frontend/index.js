@@ -1,11 +1,10 @@
+const allMovies = [];
 
 const fetchMovies = async () => {
   const loading = document.getElementById("loading");
   const loadError = document.getElementById("loadError");
-  const movieContainer = document.querySelector("#movieContainer");
 
   try {
-    // 1. Reset UI states before fetching
     loading.style.display = "block";
     loadError.style.display = "none";
 
@@ -14,17 +13,32 @@ const fetchMovies = async () => {
       credentials: "include",
     });
 
-    // 2. Check HTTP status before parsing JSON
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({}));
       throw new Error(errorData.message || `HTTP error! status: ${res.status}`);
     }
 
     const data = await res.json();
-    const movies = data?.data?.movies || [];
 
-    // 3. Render HTML safely
-    movieContainer.innerHTML = movies.map(movie => `
+    // Store all movies and series globally
+   allMovies = data?.data?.movies || [];
+
+    // Display everything initially
+    displayMovies(allMovies);
+
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    loadError.style.display = "block";
+
+  } finally {
+    loading.style.display = "none";
+  }
+};
+
+function displayMovies(movies) {
+  const movieContainer = document.querySelector("#movieContainer");
+
+  movieContainer.innerHTML = movies.map(movie => `
     <div class="card">
 
       <img src="${movie.poster}" alt="${movie.title}">
@@ -35,49 +49,55 @@ const fetchMovies = async () => {
 
       <p>${movie.genre}</p>
 
+      <p>${movie.type}</p>
+
       <p>${movie.synopsis}</p>
 
-      <p><strong>Actors:</strong>${movie.actors}</p>
+      <p>
+        <strong>Actors:</strong>
+        ${movie.actors.join(", ")}
+      </p>
 
       <div class="movie-buttons">
 
         <a href="${movie.watchLink}" target="_blank">
-            <button class="watch-btn">
-                Watch
-            </button>
+          <button class="watch-btn">
+            Watch
+          </button>
         </a>
 
         <button
-            class="save-btn"
-            onclick="addToWatchlist('${movie._id}')">
-
-            ⭐ Watchlist
-
+          class="save-btn"
+          onclick="addToWatchlist('${movie._id}')">
+          ⭐ Watchlist
         </button>
 
         <button
-            class="fav-btn"
-            onclick="addToFavorites('${movie._id}')">
-
-            ❤️ Favorite
-
+          class="fav-btn"
+          onclick="addToFavorites('${movie._id}')">
+          ❤️ Favorite
         </button>
 
       </div>
 
     </div>
-    `).join("");
+  `).join("");
+}
 
-  } catch (error) {
-    // 4. Handle errors and show error element
-    console.error("Fetch Error:", error);
-    loadError.style.display = "block";
-  } finally {
-    // 5. Always hide loading at the very end
-    loading.style.display = "none";
-  }
-};
+const moviesLink = document.querySelector("#movies-link");
+const seriesLink = document.querySelector("#series-link");
 
+moviesLink.addEventListener("click", () => {
+  const moviesOnly = allMovies.filter(movie => movie.type === "movie");
+
+  displayMovies(moviesOnly);
+});
+
+seriesLink.addEventListener("click", () => {
+  const seriesOnly = allMovies.filter(movie => movie.type === "series");
+
+  displayMovies(seriesOnly);
+});
 
 document.addEventListener("DOMContentLoaded", fetchMovies)
 
