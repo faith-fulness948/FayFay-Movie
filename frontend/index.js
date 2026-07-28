@@ -1,4 +1,4 @@
-const allMovies = [];
+let allMovies = [];
 
 const fetchMovies = async () => {
   const loading = document.getElementById("loading");
