@@ -111,24 +111,18 @@ categoryCards.forEach(card => {
     });
 
 });
-function showByType(type) {
-    const filteredMovies = allMovies.filter(movie => 
-        movie.type.toLowerCase() === type.toLowerCase()
-    );
 
-    displayMovies(filteredMovies);
-}
 const moviesLink = document.querySelector("#movies-link");
 const seriesLink = document.querySelector("#series-link");
 
 moviesLink.addEventListener("click", () => {
-  const moviesOnly = allMovies.filter(movie => movie.type === "movie");
+  const moviesOnly = allMovies.filter(movie => movie.type === "Movie");
 
   displayMovies(moviesOnly);
 });
 
 seriesLink.addEventListener("click", () => {
-  const seriesOnly = allMovies.filter(movie => movie.type === "series");
+  const seriesOnly = allMovies.filter(movie => movie.type === "Series");
 
   displayMovies(seriesOnly);
 });
