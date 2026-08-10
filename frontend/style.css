@@ -235,6 +235,133 @@ small a {
 
 
 /* Movies */
+
+/* Movies */
+.movies {
+    padding: 100px 8%;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.movies h2 {
+    margin-bottom: 40px;
+}
+
+.loader {
+    display: none;
+    margin: 0 auto;
+    width: 80px;
+    aspect-ratio: 4;
+    background: radial-gradient(circle closest-side, #fff 90%, #0000) 0/calc(100%/3) 100% no-repeat;
+    animation: l2 1s steps(3) infinite;
+}
+@keyframes l2 {to{background-position: 150%}}
+
+.load-error {
+    text-align: center;
+    color: red;
+    font-size: 18px;
+    font-style: italic;
+    display: none;
+}
+
+.movie-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    background: #1c1c1c;
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .3);
+    transition: all .3s ease;
+    border-top: 4px solid #e50914;
+    position: relative;
+
+    /* IMPORTANT */
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(229, 9, 20, .4);
+}
+
+.card img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.movie-year {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--primary-red);
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-size: smaller;
+}
+
+.card h3 {
+    padding: 15px;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.card p {
+    padding: 10px;
+    margin: 5px;
+    overflow-wrap: anywhere;
+}
+
+/* Buttons */
+.movie-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    width: 100%;
+}
+
+.watch-btn,
+.save-btn,
+.fav-btn {
+    width: 100%;
+    background: #e50914;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.save-btn {
+    background: #222;
+}
+
+.fav-btn {
+    background: #333;
+}
+
+.watch-btn:hover,
+.save-btn:hover,
+.fav-btn:hover {
+    transform: scale(1.02);
+}
+
 .movies{
     padding:100px 8%;
 }
