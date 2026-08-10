@@ -62,11 +62,13 @@ function displayMovies(movies) {
 
             <div class="movie-buttons">
 
-                <a href="${movie.trailerLink}" target="_blank">
-                    <button class="watch-btn">
+                <button
+                    class="watch-btn"
+                    onclick="watchTrailer('${movie.title}')">
+
                     ▶ Trailer
-                    </button>
-                </a>
+
+                </button>
 
                 <button
                     class="watch-btn"
@@ -98,6 +100,18 @@ function displayMovies(movies) {
     `).join("");
 }
 
+function watchTrailer(title) {
+    const url = `https://www.youtube.com/results?search_query=${encodeURIComponent(title + " official trailer")}`;
+
+    window.open(url, "_blank");
+}
+
+
+function whereToWatch(title) {
+    const url = `https://www.justwatch.com/ng/search?q=${encodeURIComponent(title)}`;
+
+    window.open(url, "_blank");
+}
 const categoryCards = document.querySelectorAll(".box");
 categoryCards.forEach(card => {
 
@@ -129,11 +143,6 @@ seriesLink.addEventListener("click", () => {
 
   displayMovies(seriesOnly);
 });
-
-function whereToWatch(title) {
-    const url = `https://www.justwatch.com/ng/search?q=${encodeURIComponent(title)}`;
-    window.open(url, "_blank");
-}
 
 
 document.addEventListener("DOMContentLoaded", fetchMovies)
