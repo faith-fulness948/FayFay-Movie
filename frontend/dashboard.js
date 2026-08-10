@@ -1,5 +1,6 @@
-
+// =========================
 // Logged-in User
+// =========================
 
 async function loadUser() {
     
@@ -20,7 +21,7 @@ async function loadUser() {
             return;
             
         }
-
+        
         document.getElementById("username").textContent = data.user.username;
         
         // Disallow unverified user
@@ -43,6 +44,7 @@ async function loadUser() {
 }
 
 loadUser();
+
 // =========================
 // Dashboard Data
 // =========================
@@ -146,7 +148,7 @@ function renderFavorites() {
 
 function removeWatchlist(id){
 
-   const watchlist = watchlist.filter(movie => movie._id !== id);
+    watchlist = watchlist.filter(movie => movie._id !== id);
 
     renderWatchlist();
 
@@ -160,7 +162,7 @@ function removeWatchlist(id){
 
 function removeFavorite(id){
 
-    const favorites = favorites.filter(movie => movie._id !== id);
+    favorites = favorites.filter(movie => movie._id !== id);
 
     renderFavorites();
 
@@ -247,9 +249,9 @@ async function fetchDashboard() {
 
         const data = await res.json();
 
-        const watchlist = data.dashboard.watchlist.map(item => item.movie);
+        watchlist = data.dashboard.watchlist.map(item => item.movie);
 
-        const favorites = data.dashboard.favorites.map(item => item.movie);
+        favorites = data.dashboard.favorites.map(item => item.movie);
 
         updateStats();
 

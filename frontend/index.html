@@ -14,9 +14,9 @@
             <div class="logo">Movie</div>
             <ul class="nav-links">
              <li><a href="#">Home</a></li>
-             <li><a href="#">Movies</a></li>
-             <li><a href="#">Series</a></li>
-             <li><a href="#">Trending</a></li>
+             <li><a href="#monnie">Films</a></li>
+             <li><a href="#series" id="series-link">Series</a></li>
+             <li><a href="#movies" id="movies-link">Movie</a></li>
              <li><a href="/dashboard.html">Dashboard</a></li>
             </ul>
             <div>
@@ -114,9 +114,27 @@
         </div>
     </section>
 
+    <!-- Categories -->
+
+    <section class="categories">
+        <h2>Browse By Category</h2>
+
+        <div class="category-boxes">
+            <div class="box" data-genre="Action">Action</div>
+            <div class="box" data-genre="Comedy">Comedy</div>
+            <div class="box" data-genre="Horror">Horror</div>
+            <div class="box" data-genre="Sci-Fi">Sci-Fi</div>
+            <div class="box" data-genre="Drama">Drama</div>
+            <div class="box" data-genre="Animation">Animation</div>
+            <div class="box" data-genre="Romance">Romance</div>
+            <div class="box" data-genre="Mystery">Mystery</div>
+
+        </div>
+    </section>
+
     <!-- Popular Movies -->
-    <section class="movies">
-        <h2>Popular Movies</h2>
+    <section class="movies" id="monnie">
+        <h2>All Films</h2>
 
         <div class="movie-container" id="movieContainer">
 
@@ -124,20 +142,6 @@
 
             <p class="load-error" id="loadError">Unable to load movies</p>
 
-        </div>
-    </section>
-
-    <!-- Categories -->
-    <section class="categories">
-        <h2>Browse By Category</h2>
-
-        <div class="category-boxes">
-            <div class="box">Action</div>
-            <div class="box">Comedy</div>
-            <div class="box">Horror</div>
-            <div class="box">Sci-Fi</div>
-            <div class="box">Drama</div>
-            <div class="box">Animation</div>
         </div>
     </section>
 

@@ -1,11 +1,9 @@
-
+let allMovies = []
 const fetchMovies = async () => {
   const loading = document.getElementById("loading");
   const loadError = document.getElementById("loadError");
-  const movieContainer = document.querySelector("#movieContainer");
 
   try {
-    // 1. Reset UI states before fetching
     loading.style.display = "block";
     loadError.style.display = "none";
 
@@ -14,79 +12,138 @@ const fetchMovies = async () => {
       credentials: "include",
     });
 
-    // 2. Check HTTP status before parsing JSON
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({}));
       throw new Error(errorData.message || `HTTP error! status: ${res.status}`);
     }
 
     const data = await res.json();
-    const movies = data?.data?.movies || [];
 
-    // 3. Render HTML safely
-    movieContainer.innerHTML = movies.map(movie => `
-    <div class="card">
+    // Store all movies and series globally
+    allMovies = data?.data?.movies || [];
+    const titles = allMovies.map(movie => movie.title);
 
-        <span class="movie-year">${movie.year}</span>
+    console.log(titles);
 
-        <h3>${movie.title}</h3>
-
-        <p>${movie.genre}</p>
-
-        <p>${movie.synopsis}</p>
-
-        <p><strong>Actors:</strong>${movie.actors.join(", ")}</p>
-
-      <div class="movie-buttons">
-
-            <a href="${movie.trailerLink}" target="_blank">
-                <button class="watch-btn">
-                    Trailer
-                </button>
-            </a>
-
-            <button
-                class="watch-btn"
-                onclick="whereToWatch('${movie.title}')">
-
-                Where to Watch
-
-            </button>
-
-            <button
-                class="save-btn"
-                onclick="addToWatchlist('${movie._id}')">
-
-                ⭐ Watchlist
-
-            </button>
-
-            <button
-                class="fav-btn"
-                onclick="addToFavorites('${movie._id}')">
-
-                ❤️ Favorite
-
-            </button>
-
-        </div>
-    </div>
-    `).join("");
+    // Display everything initially
+    displayMovies(allMovies);
 
   } catch (error) {
-    // 4. Handle errors and show error element
     console.error("Fetch Error:", error);
     loadError.style.display = "block";
+
   } finally {
-    // 5. Always hide loading at the very end
     loading.style.display = "none";
   }
 };
 
-function whereToWatch(title) {
-    const url = `https://www.justwatch.com/ng/search?q=${encodeURIComponent(title)}`;
+function displayMovies(movies) {
+  const movieContainer = document.querySelector("#movieContainer");
+
+    movieContainer.innerHTML = movies.map(movie => `
+        <div class="card">
+
+            <img src="${movie.poster}" alt="${movie.title}">
+
+            <span class="movie-year">${movie.year}</span>
+
+            <h3>${movie.title}</h3>
+
+            <p>${movie.genre}</p>
+
+            <p>${movie.type}</p>
+
+            <p>${movie.synopsis}</p>
+
+            <p>
+                <strong>Actors:</strong>
+                ${movie.actors.join(", ")}
+            </p>
+
+            <div class="movie-buttons">
+
+                <button
+                    class="watch-btn"
+                    onclick="watchTrailer('${movie.title}')">
+
+                    ▶ Trailer
+
+                </button>
+
+                <button
+                    class="watch-btn"
+                    onclick="whereToWatch('${movie.title}')">
+
+                    📺 Where to Watch
+
+                </button>
+
+                <button
+                    class="save-btn"
+                    onclick="addToWatchlist('${movie._id}')">
+
+                    ⭐ Watchlist
+
+                </button>
+
+                <button
+                    class="fav-btn"
+                    onclick="addToFavorites('${movie._id}')">
+
+                    ❤️ Favorite
+
+                </button>
+
+            </div>
+    
+        </div>
+    `).join("");
+}
+
+function watchTrailer(title) {
+    const url = `https://www.youtube.com/results?search_query=${encodeURIComponent(title + " official trailer")}`;
+
     window.open(url, "_blank");
 }
+
+
+function whereToWatch(title) {
+    const url = `https://www.justwatch.com/ng/search?q=${encodeURIComponent(title)}`;
+
+    window.open(url, "_blank");
+}
+const categoryCards = document.querySelectorAll(".box");
+categoryCards.forEach(card => {
+
+    card.addEventListener("click", () => {
+
+        const genre = card.dataset.genre;
+
+        const filteredMovies = allMovies.filter(movie =>
+            movie.genre === genre
+        );
+
+        displayMovies(filteredMovies);
+
+    });
+
+});
+
+const moviesLink = document.querySelector("#movies-link");
+const seriesLink = document.querySelector("#series-link");
+
+moviesLink.addEventListener("click", () => {
+  const moviesOnly = allMovies.filter(movie => movie.type === "Movie");
+
+  displayMovies(moviesOnly);
+});
+
+seriesLink.addEventListener("click", () => {
+  const seriesOnly = allMovies.filter(movie => movie.type === "Series");
+
+  displayMovies(seriesOnly);
+});
+
 
 document.addEventListener("DOMContentLoaded", fetchMovies)
 
