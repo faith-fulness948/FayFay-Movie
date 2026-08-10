@@ -90,6 +90,8 @@ function displayMovies(movies) {
             </button>
 
         </div>
+    
+    </div>
     `).join("");
 }
 
