@@ -37,61 +37,61 @@ const fetchMovies = async () => {
 function displayMovies(movies) {
   const movieContainer = document.querySelector("#movieContainer");
 
-  movieContainer.innerHTML = movies.map(movie => `
-    <div class="card">
+    movieContainer.innerHTML = movies.map(movie => `
+        <div class="card">
 
-      <img src="${movie.poster}" alt="${movie.title}">
+            <img src="${movie.poster}" alt="${movie.title}">
 
-      <span class="movie-year">${movie.year}</span>
+            <span class="movie-year">${movie.year}</span>
 
-      <h3>${movie.title}</h3>
+            <h3>${movie.title}</h3>
 
-      <p>${movie.genre}</p>
+            <p>${movie.genre}</p>
 
-      <p>${movie.type}</p>
+            <p>${movie.type}</p>
 
-      <p>${movie.synopsis}</p>
+            <p>${movie.synopsis}</p>
 
-      <p>
-        <strong>Actors:</strong>
-        ${movie.actors.join(", ")}
-      </p>
+            <p>
+                <strong>Actors:</strong>
+                ${movie.actors.join(", ")}
+            </p>
 
-        <div class="movie-buttons">
+            <div class="movie-buttons">
 
-            <a href="${movie.trailerLink}" target="_blank">
-                <button class="watch-btn">
-                ▶ Trailer
+                <a href="${movie.trailerLink}" target="_blank">
+                    <button class="watch-btn">
+                    ▶ Trailer
+                    </button>
+                </a>
+
+                <button
+                    class="watch-btn"
+                    onclick="whereToWatch('${movie.title}')">
+
+                    📺 Where to Watch
+
                 </button>
-            </a>
 
-            <button
-                class="watch-btn"
-                onclick="whereToWatch('${movie.title}')">
+                <button
+                    class="save-btn"
+                    onclick="addToWatchlist('${movie._id}')">
 
-                📺 Where to Watch
+                    ⭐ Watchlist
 
-            </button>
+                </button>
 
-            <button
-                class="save-btn"
-                onclick="addToWatchlist('${movie._id}')">
+                <button
+                    class="fav-btn"
+                    onclick="addToFavorites('${movie._id}')">
 
-                ⭐ Watchlist
+                    ❤️ Favorite
 
-            </button>
+                </button>
 
-            <button
-                class="fav-btn"
-                onclick="addToFavorites('${movie._id}')">
-
-                ❤️ Favorite
-
-            </button>
-
-        </div>
+            </div>
     
-    </div>
+        </div>
     `).join("");
 }
 
