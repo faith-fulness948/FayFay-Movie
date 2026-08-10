@@ -21,6 +21,9 @@ const fetchMovies = async () => {
 
     // Store all movies and series globally
     allMovies = data?.data?.movies || [];
+    const titles = movies.map(movie => movie.title);
+
+    console.log(titles);
 
     // Display everything initially
     displayMovies(allMovies);
