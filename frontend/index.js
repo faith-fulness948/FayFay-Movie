@@ -130,15 +130,6 @@ function whereToWatch(title) {
     window.open(url, "_blank");
 }
 
-const categoryCards = document.querySelectorAll(".box");
-
-categoryCards.forEach(card => {
-    card.addEventListener("click", () => {
-        const genre = card.dataset.genre;
-        const filteredMovies = allMovies.filter(movie => movie.genre === genre);
-        displayMovies(filteredMovies)
-    })
-})
 
 document.addEventListener("DOMContentLoaded", fetchMovies)
 
