@@ -1,11 +1,9 @@
-
+let allMovies = []
 const fetchMovies = async () => {
   const loading = document.getElementById("loading");
   const loadError = document.getElementById("loadError");
-  const movieContainer = document.querySelector("#movieContainer");
 
   try {
-    // 1. Reset UI states before fetching
     loading.style.display = "block";
     loadError.style.display = "none";
 
@@ -14,34 +12,56 @@ const fetchMovies = async () => {
       credentials: "include",
     });
 
-    // 2. Check HTTP status before parsing JSON
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({}));
       throw new Error(errorData.message || `HTTP error! status: ${res.status}`);
     }
 
     const data = await res.json();
-    const movies = data?.data?.movies || [];
 
-    // 3. Render HTML safely
-    movieContainer.innerHTML = movies.map(movie => `
+    // Store all movies and series globally
+    allMovies = data?.data?.movies || [];
+
+    // Display everything initially
+    displayMovies(allMovies);
+
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    loadError.style.display = "block";
+
+  } finally {
+    loading.style.display = "none";
+  }
+};
+
+function displayMovies(movies) {
+  const movieContainer = document.querySelector("#movieContainer");
+
+  movieContainer.innerHTML = movies.map(movie => `
     <div class="card">
 
-        <span class="movie-year">${movie.year}</span>
+      <img src="${movie.poster}" alt="${movie.title}">
 
-        <h3>${movie.title}</h3>
+      <span class="movie-year">${movie.year}</span>
 
-        <p>${movie.genre}</p>
+      <h3>${movie.title}</h3>
 
-        <p>${movie.synopsis}</p>
+      <p>${movie.genre}</p>
 
-        <p><strong>Actors:</strong>${movie.actors.join(", ")}</p>
+      <p>${movie.type}</p>
 
-      <div class="movie-buttons">
+      <p>${movie.synopsis}</p>
+
+      <p>
+        <strong>Actors:</strong>
+        ${movie.actors.join(", ")}
+      </p>
+
+        <div class="movie-buttons">
 
             <a href="${movie.trailerLink}" target="_blank">
                 <button class="watch-btn">
-                    Trailer
+                ▶ Trailer
                 </button>
             </a>
 
@@ -49,7 +69,7 @@ const fetchMovies = async () => {
                 class="watch-btn"
                 onclick="whereToWatch('${movie.title}')">
 
-                Where to Watch
+                📺 Where to Watch
 
             </button>
 
@@ -70,23 +90,55 @@ const fetchMovies = async () => {
             </button>
 
         </div>
-    </div>
     `).join("");
+}
 
-  } catch (error) {
-    // 4. Handle errors and show error element
-    console.error("Fetch Error:", error);
-    loadError.style.display = "block";
-  } finally {
-    // 5. Always hide loading at the very end
-    loading.style.display = "none";
-  }
-};
+const categoryCards = document.querySelectorAll(".box");
+categoryCards.forEach(card => {
+
+    card.addEventListener("click", () => {
+
+        const genre = card.dataset.genre;
+
+        const filteredMovies = allMovies.filter(movie =>
+            movie.genre === genre
+        );
+
+        displayMovies(filteredMovies);
+
+    });
+
+});
+
+const moviesLink = document.querySelector("#movies-link");
+const seriesLink = document.querySelector("#series-link");
+
+moviesLink.addEventListener("click", () => {
+  const moviesOnly = allMovies.filter(movie => movie.type === "movie");
+
+  displayMovies(moviesOnly);
+});
+
+seriesLink.addEventListener("click", () => {
+  const seriesOnly = allMovies.filter(movie => movie.type === "series");
+
+  displayMovies(seriesOnly);
+});
 
 function whereToWatch(title) {
     const url = `https://www.justwatch.com/ng/search?q=${encodeURIComponent(title)}`;
     window.open(url, "_blank");
 }
+
+const categoryCards = document.querySelectorAll(".box");
+
+categoryCards.forEach(card => {
+    card.addEventListener("click", () => {
+        const genre = card.dataset.genre;
+        const filteredMovies = allMovies.filter(movie => movie.genre === genre);
+        displayMovies(filteredMovies)
+    })
+})
 
 document.addEventListener("DOMContentLoaded", fetchMovies)
 
