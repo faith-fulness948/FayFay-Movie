@@ -111,7 +111,13 @@ categoryCards.forEach(card => {
     });
 
 });
+function showByType(type) {
+    const filteredMovies = allMovies.filter(movie => 
+        movie.type.toLowerCase() === type.toLowerCase()
+    );
 
+    displayMovies(filteredMovies);
+}
 const moviesLink = document.querySelector("#movies-link");
 const seriesLink = document.querySelector("#series-link");
 
