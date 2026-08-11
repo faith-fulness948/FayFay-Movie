@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 3000; // PORT
 
 // Middlewares
 app.use(cors({
-    origin: [process.env.FRONTEND_URL, "http://127.0.0.1:5501", "https://fayfay-movie.netlify.app", "https://devserver-main--fayfay-movie.netlify.app"],
+    origin: [process.env.FRONTEND_URL, "http://127.0.0.1:5501", "https://fayfay-movie.netlify.app", "http://127.0.0.1:5500" ],
     credentials: true,
     optionsSuccessStatus: 200
 }))
