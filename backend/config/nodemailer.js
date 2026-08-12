@@ -1,32 +1,26 @@
-import brevo from "@getbrevo/brevo";
+import { BrevoClient } from "@getbrevo/brevo";
 
-const apiInstance = new brevo.TransactionalEmailsApi();
-
-apiInstance.setApiKey(
-    brevo.TransactionalEmailsApiApiKeys.apiKey,
-    process.env.BREVO_API_KEY
-);
+const brevo = new BrevoClient({
+    apiKey: process.env.BREVO_API_KEY,
+});
 
 const sendEmail = async (mailOptions) => {
     try {
-        const sendSmtpEmail = new brevo.SendSmtpEmail();
+        const response = await brevo.transactionalEmails.sendTransacEmail({
+            sender: {
+                name: "FayFay Movie",
+                email: process.env.BREVO_SENDER_EMAIL,
+            },
 
-        sendSmtpEmail.subject = mailOptions.subject;
+            to: [
+                {
+                    email: mailOptions.to,
+                },
+            ],
 
-        sendSmtpEmail.htmlContent = mailOptions.html;
-
-        sendSmtpEmail.sender = {
-            name: "FayFay Movie",
-            email: process.env.BREVO_SENDER_EMAIL
-        };
-
-        sendSmtpEmail.to = [
-            {
-                email: mailOptions.to
-            }
-        ];
-
-        const response = await apiInstance.sendTransacEmail(sendSmtpEmail);
+            subject: mailOptions.subject,
+            htmlContent: mailOptions.html,
+        });
 
         console.log("Brevo email sent:", response);
 
@@ -39,25 +33,3 @@ const sendEmail = async (mailOptions) => {
 };
 
 export default sendEmail;
-// import { Resend } from "resend";
-
-// const resend = new Resend(process.env.RESEND_API_KEY);
-
-// const sendEmail = async (mailOptions) => {
-//     try {
-//         const response = await resend.emails.send({
-//             from: "FayFay Movie <onboarding@resend.dev>",
-//             to: [mailOptions.to],
-//             subject: mailOptions.subject,
-//             html: mailOptions.html,
-//         });
-
-//         console.log("Email sent:", response);
-
-//     } catch (error) {
-//         console.error("Resend Error:", error);
-//         throw error;
-//     }
-// };
-
-// export default sendEmail;
