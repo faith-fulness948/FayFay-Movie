@@ -38,7 +38,7 @@ const movieSchema = new mongoose.Schema(
         // notes
         synopsis: {
             type: String,
-            maxLength: 200,
+            maxLength: 500,
         },
 
     },
