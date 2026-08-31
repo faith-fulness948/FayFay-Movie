@@ -37,6 +37,12 @@ const userSchema = new mongoose.Schema({
         default: false,
     },
 
+    role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user"
+    },
+
     // tokens and expiry
     verificationToken: {
         type: String,
