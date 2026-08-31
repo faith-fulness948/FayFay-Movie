@@ -32,6 +32,7 @@ const authMiddleware = async (req, res, next) => {
         }
 
         req.user = user;
+        console.log("AUTHENTICATED USER:", req.user);
 
         next();
 
