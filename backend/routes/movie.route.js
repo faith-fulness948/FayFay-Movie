@@ -9,7 +9,7 @@ const router = express.Router();
 router.param("id", idChecker);
 
 router.route("/")
-    .post(adminMiddleware, authMiddleware, createMovie)
+    .post(authMiddleware, adminMiddleware, createMovie)
     .get(getAllMovies);
 
 router.route("/:id")
