@@ -15,7 +15,7 @@ router.route("/")
 
 router.route("/:id")
     .get(getAMovie)
-    .put(updateMovie)
-    .delete(deleteMovie);
+    .put(authMiddleware, adminMiddleware, upload.single("poster"), updateMovie)
+    .delete(authMiddleware, adminMiddleware, deleteMovie);
 
 export default router;

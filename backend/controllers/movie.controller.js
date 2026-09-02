@@ -148,29 +148,62 @@ export const getAMovie = async (req, res) => {
 export const updateMovie = async (req, res) => {
     try {
         const id = req.params.id;
-
         const update = req.body;
 
-        const updatedMovie = await Movie.findByIdAndUpdate(id, update, {new: true, runValidators: true});
+        // Find the movie first
+        const movie = await Movie.findById(id);
 
-        const {__v, ...movieResponse} = updatedMovie.toObject();
+        if (!movie) {
+            return res.status(404).json({
+                success: false,
+                message: notFoundError("Movie"),
+            });
+        }
+
+        // Convert actors from string to array
+        if (typeof update.actors === "string") {
+            update.actors = JSON.parse(update.actors);
+        }
+
+        // If a new poster was uploaded
+        if (req.file) {
+            const uploadedPoster = await uploadToCloudinary(req.file.buffer);
+
+            update.poster = uploadedPoster.secure_url;
+
+            // Delete old poster from Cloudinary later
+            // We can add this once everything is working.
+        }
+
+        // Update movie
+        const updatedMovie = await Movie.findByIdAndUpdate(
+            id,
+            update,
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
+
+        const { __v, ...movieResponse } = updatedMovie.toObject();
 
         res.status(200).json({
             success: true,
             message: successUpdateMsg("Movie"),
             data: {
                 movie: movieResponse,
-            }
-        })
+            },
+        });
+
     } catch (error) {
         console.error("Update a movie error:", error);
-        
+
         res.status(500).json({
             success: false,
             message: internalServerError,
         });
     }
-}
+};
 
 // delete
 export const deleteMovie = async (req, res) => {
