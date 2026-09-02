@@ -3,13 +3,14 @@ import { createMovie, deleteMovie, getAllMovies, getAMovie, updateMovie } from "
 import idChecker from "../middlewares/idChecker.js";
 import authMiddleware from "../middlewares/authMiddleware.js";
 import adminMiddleware from "../middlewares/adminMiddleware.js"
+import upload from "../middlewares/uploadMiddleware.js";
 
 const router = express.Router();
 
 router.param("id", idChecker);
 
 router.route("/")
-    .post(authMiddleware, adminMiddleware, createMovie)
+    .post(authMiddleware, adminMiddleware, upload.single("poster"), createMovie)
     .get(getAllMovies);
 
 router.route("/:id")

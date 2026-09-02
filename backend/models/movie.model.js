@@ -41,6 +41,10 @@ const movieSchema = new mongoose.Schema(
             maxLength: 500,
         },
 
+        poster: {
+            type: String,
+            default: ""
+        }
     },
     {
         timestamps: true

@@ -1,12 +1,52 @@
 import { alreadyExistError, createSuccessMsg, internalServerError, notFoundError, requiredFieldError, successDeleteMsg, successUpdateMsg } from "../constants/messages.js";
 import Movie from "../models/movie.model.js";
+import cloudinary from "../config/cloudinary.js";
+
+const uploadToCloudinary = (buffer) => {
+    return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder: "fayfay-movie/posters",
+                resource_type: "image",
+            },
+            (error, result) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            }
+        );
+
+        stream.end(buffer);
+    });
+};
 
 // Create
 export const createMovie = async (req, res) => {
     try {
         const movie = req.body;
 
-        
+        // Check if poster was uploaded
+        if (!req.file) {
+            return res.status(400).json({
+                success: false,
+                message: "Poster image is required",
+            });
+        }
+
+        // Upload poster to Cloudinary
+        const uploadedPoster = await uploadToCloudinary(req.file.buffer);
+
+        // Add poster information to movie
+        movie.poster = {
+            url: uploadedPoster.secure_url,
+        };
+
+        // Convert actors from string to array
+        if (typeof movie.actors === "string") {
+            movie.actors = JSON.parse(movie.actors);
+        }
         const newMovie = await new Movie(movie);
 
         const { title, genre, year} = newMovie;
