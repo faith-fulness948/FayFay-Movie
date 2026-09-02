@@ -39,9 +39,7 @@ export const createMovie = async (req, res) => {
         const uploadedPoster = await uploadToCloudinary(req.file.buffer);
 
         // Add poster information to movie
-        movie.poster = {
-            url: uploadedPoster.secure_url,
-        };
+        movie.poster = uploadedPoster.secure_url;
 
         // Convert actors from string to array
         if (typeof movie.actors === "string") {
