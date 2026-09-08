@@ -3,19 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Verify Your Email</title>
 </head>
-<body>
-    <div style="display: flex; flex-direction: column; align-items: center; width: 100%; gap: 20px;">
-        <h1 style="background-color: purple; width: 100%; color: white; text-align: center; padding: 10px 0;">Verify Your Email</h1>
 
-        <div>
-            <h2>Hi, ${username}</h2>
+<body style="
+    margin: 0;
+    padding: 0;
+    background-color: #f5f3f7;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+">
 
-            <p>Welcome to our learning platform. We expect you to really enjoy our platform to the fullest. Verify your email with the token below:</p>
+    <div style="
+        width: 100%;
+        padding: 40px 0;
+    ">
 
-            <p>Verification token: <span>${verificationToken}</span></p>
+        <!-- Email Container -->
+        <div style="
+            max-width: 550px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        ">
+
+            <!-- Header -->
+            <div style="
+                background-color: #6a0dad;
+                padding: 25px;
+                text-align: center;
+            ">
+                <h1 style="
+                    margin: 0;
+                    color: #ffffff;
+                    font-size: 28px;
+                ">
+                    FayFay Movie
+                </h1>
+
+                <p style="
+                    margin: 8px 0 0;
+                    color: #e9d8ff;
+                    font-size: 14px;
+                ">
+                    Welcome to the world of movies 🎬
+                </p>
+            </div>
+
+            <!-- Content -->
+            <div style="
+                padding: 35px 30px;
+            ">
+
+                <h2 style="
+                    margin-top: 0;
+                    color: #222;
+                    font-size: 22px;
+                ">
+                    Hi, ${username} 👋
+                </h2>
+
+                <p style="
+                    font-size: 15px;
+                    line-height: 1.7;
+                    color: #555;
+                ">
+                    Welcome to <strong>FayFay Movie!</strong> We're excited to have
+                    you here. Before you start exploring, we just need to verify
+                    your email address.
+                </p>
+
+                <p style="
+                    font-size: 15px;
+                    line-height: 1.7;
+                    color: #555;
+                ">
+                    Use the verification code below to complete your registration:
+                </p>
+
+                <!-- Verification Code -->
+                <div style="
+                    margin: 30px 0;
+                    padding: 20px;
+                    background-color: #f4edff;
+                    border: 2px dashed #6a0dad;
+                    border-radius: 10px;
+                    text-align: center;
+                ">
+
+                    <p style="
+                        margin: 0 0 8px;
+                        color: #666;
+                        font-size: 13px;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    ">
+                        Your Verification Code
+                    </p>
+
+                    <div style="
+                        font-size: 30px;
+                        font-weight: bold;
+                        letter-spacing: 6px;
+                        color: #6a0dad;
+                    ">
+                        ${verificationToken}
+                    </div>
+
+                </div>
+
+                <p style="
+                    font-size: 13px;
+                    line-height: 1.6;
+                    color: #777;
+                ">
+                    If you didn't create an account with us, you can safely
+                    ignore this email.
+                </p>
+
+                <p style="
+                    font-size: 13px;
+                    line-height: 1.6;
+                    color: #777;
+                ">
+                    For your security, please don't share this verification code
+                    with anyone.
+                </p>
+
+            </div>
+
+            <!-- Footer -->
+            <div style="
+                background-color: #fafafa;
+                padding: 20px;
+                text-align: center;
+                border-top: 1px solid #eee;
+            ">
+
+                <p style="
+                    margin: 0;
+                    color: #999;
+                    font-size: 12px;
+                ">
+                    © 2026 FayFay Movie. All rights reserved.
+                </p>
+
+                <p style="
+                    margin: 8px 0 0;
+                    color: #aaa;
+                    font-size: 12px;
+                ">
+                    Enjoy your movie experience 🍿🎬
+                </p>
+
+            </div>
+
         </div>
+
     </div>
+
 </body>
 </html>
