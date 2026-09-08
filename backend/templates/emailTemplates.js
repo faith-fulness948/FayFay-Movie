@@ -39,7 +39,7 @@ export const sendVerificationTemplate = (username, verificationToken) => {
                     color: #ffffff;
                     font-size: 28px;
                 ">
-                    🎬 FayFay Movie
+                     FayFay Movie
                 </h1>
 
                 <p style="
@@ -212,7 +212,7 @@ export const verificationSuccessfulTemplate = `
                 color: white;
                 font-size: 28px;
             ">
-                🎬 FayFay Movie
+                 FayFay Movie
             </h1>
         </div>
 
