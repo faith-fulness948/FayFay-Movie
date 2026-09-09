@@ -1,6 +1,4 @@
-// ===============================
 // SEND VERIFICATION EMAIL
-// ===============================
 export const sendVerificationTemplate = (username, verificationToken) => {
     return `
     <!DOCTYPE html>
@@ -172,9 +170,7 @@ export const sendVerificationTemplate = (username, verificationToken) => {
 };
 
 
-// ===============================
 // SUCCESSFUL VERIFICATION EMAIL
-// ===============================
 export const verificationSuccessfulTemplate = `
 <!DOCTYPE html>
 <html>
@@ -299,9 +295,7 @@ export const verificationSuccessfulTemplate = `
 `;
 
 
-// ===============================
 // RESET PASSWORD EMAIL
-// ===============================
 export const resetPasswordTemplate = (url) => {
     return `
     <!DOCTYPE html>

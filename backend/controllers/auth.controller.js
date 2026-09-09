@@ -264,7 +264,14 @@ export const forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
 
-        const user = await User.findOne({email});
+        if (!email) {
+            return res.status(400).json({
+                success: false,
+                message: "Please enter your email address."
+            });
+        }
+
+        const user = await User.findOne({email: email.toLowerCase().trim()});
 
         if(!user){
             return res.status(404).json({
@@ -281,12 +288,20 @@ export const forgotPassword = async (req, res) => {
 
         await user.save();
 
+        const resetUrl =
+            `${process.env.FRONTEND_URL}/reset-password/${resetPasswordToken}`;
+
+        await sendResetPasswordEmail(
+            user.email,
+            resetUrl
+        );
+
         res.status(200).json({
             success: true,
             message: "Check your email to reset your password"
         });
 
-        sendResetPasswordEmail(user.email, `${process.env.FRONTEND_URL}/reset-password/${resetPasswordToken}`);
+        
 
     } catch (error) {
         console.error("forgot password error:", error);
@@ -303,6 +318,20 @@ export const resetPassword = async (req, res) => {
         
         const token = req.params.token;
         const { password } = req.body;
+
+        if (!password) {
+            return res.status(400).json({
+                success: false,
+                message: "Please enter a new password."
+            });
+        }
+
+        if (password.length < 8) {
+            return res.status(400).json({
+                success: false,
+                message: "Password must be at least 8 characters long."
+            });
+        }
 
         const user = await User.findOne({
             resetPasswordToken: token,
