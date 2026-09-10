@@ -30,28 +30,32 @@ if (!token) {
 // SHOW / HIDE PASSWORD
 
 togglePassword.addEventListener("click", () => {
+    const icon = togglePassword.querySelector("i");
 
     if (passwordInput.type === "password") {
         passwordInput.type = "text";
-        togglePassword.textContent = "🙈";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
     } else {
         passwordInput.type = "password";
-        togglePassword.textContent = "👁";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
     }
-
 });
 
 
 toggleConfirmPassword.addEventListener("click", () => {
+    const icon = toggleConfirmPassword.querySelector("i");
 
     if (confirmPasswordInput.type === "password") {
         confirmPasswordInput.type = "text";
-        toggleConfirmPassword.textContent = "🙈";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
     } else {
         confirmPasswordInput.type = "password";
-        toggleConfirmPassword.textContent = "👁";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
     }
-
 });
 
 
