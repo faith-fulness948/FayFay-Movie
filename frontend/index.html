@@ -9,20 +9,70 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <header>
+   <header>
         <nav class="navbar">
+
             <div class="logo">Movie</div>
-            <ul class="nav-links">
-             <li><a href="#">Home</a></li>
-             <li><a href="#monnie">Films</a></li>
-             <li><a href="#series" id="series-link">Series</a></li>
-             <li><a href="#movies" id="movies-link">Movie</a></li>
-             <li><a href="/dashboard.html">Dashboard</a></li>
-            </ul>
-            <div>
-                <button class="btn" id="sign-in">Sign In</button>
-                <button class="btn" id="sign-up">Sign Up</button>
+
+            <!-- Hamburger -->
+            <button class="menu-toggle" id="menu-toggle">
+                ☰
+            </button>
+
+            <!-- Everything that opens on mobile -->
+            <div class="nav-menu" id="nav-menu">
+
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+
+                    <li><a href="#monnie" id="films-link">Films</a></li>
+
+                    <li>
+                        <a href="#series" id="series-link">Series</a>
+                     </li>
+
+                    <li>
+                        <a href="#movies" id="movies-link">Movie</a>
+                    </li>
+
+                    <li id="dashboard-link" style="display: none;">
+                        <a href="/dashboard.html">Dashboard</a>
+                    </li>
+
+                    <li id="post-movie-link" style="display: none;">
+                        <a href="/post-movie.html">Post Movie</a>
+                    </li>
+                </ul>
+
+
+                <!-- Authentication -->
+                <div class="auth-section">
+
+                    <div id="logged-out-buttons">
+                        <button class="btn" id="sign-in">
+                            Sign In
+                        </button>
+
+                        <button class="btn" id="sign-up">
+                            Sign Up
+                        </button>
+                    </div>
+
+
+                    <div id="logged-in-user" style="display: none;">
+
+                        <span id="nav-username"></span>
+
+                        <button class="btn logout-btn" id="logout-btn">
+                            Logout
+                        </button>
+
+                    </div>
+
+                </div>
+
             </div>
+
         </nav>
     </header>
 
@@ -30,39 +80,62 @@
     <div class="modal-wrapper" id="modal-wrapper">
         <div class="modal" id="modal-login">
             <span class="close-btn" id="loginCloseBtn">&times;</span>
-        
-            <h2>Admin Login</h2>
-        
+
+            <h2>Login</h2>
+
             <form id="loginForm">
+
                 <div class="input-group">
-                    <label>Email or Username</label>
-                    <input type="text" id="identifier" placeholder="Enter your email or username" required>
+                    <label for="identifier">Email or Username</label>
+
+                    <input
+                    type="text"
+                    id="identifier"
+                    placeholder="Enter your email or username"
+                    required
+                    >
                 </div>
-        
+
+
                 <div class="input-group">
-                    <label>Password</label>
+                    <div class="password-label">
+                        <label for="password">Password</label>
+
+                        <a href="/forgot-password.html" class="forgot-password">
+                            Forgot Password?
+                        </a>
+                    </div>
+
                     <div class="password-container">
-                        <input 
-                            type="password" 
-                            id="password" 
-                            placeholder="Enter password" 
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter password"
                             required
                         >
 
                         <span id="toggleLoginPassword" class="eye">
-                           <i class="fa-solid fa-eye"></i>
+                            <i class="fa-solid fa-eye"></i>
                         </span>
+
                     </div>
                 </div>
-        
-                <button type="submit" id="login">Login</button>
-        
+
+
+                <button type="submit" id="login">
+                    Login
+                </button>
+
                 <p class="message" id="login-message"></p>
-                <small class="small" >Don't have an account. <a id="signup-trigger">Sign Up.</a> </small>
+
+                <small class="small">
+                    Don't have an account?
+                    <a id="signup-trigger">Sign Up.</a>
+                </small>
+
             </form>
-
         </div>
-
         <div class="modal" id="modal-signup">
             <span class="close-btn" id="signupCloseBtn">&times;</span>
         
@@ -104,13 +177,102 @@
         </div>
 
     </div>
+    <!-- MOVIE DETAILS MODAL -->
+    <div class="movie-modal-wrapper" id="movie-modal-wrapper">
 
+        <div class="movie-modal">
+
+            <button class="movie-modal-close" id="movie-modal-close">
+                &times;
+            </button>
+
+            <div class="movie-modal-content">
+
+                <!-- Poster -->
+                <div class="movie-modal-poster">
+                    <img
+                        id="modal-poster"
+                        src=""
+                        alt="Movie poster"
+                    >
+                </div>
+
+
+                <!-- Details -->
+                <div class="movie-modal-details">
+
+                    <h2 id="modal-title"></h2>
+
+                    <div class="modal-meta">
+                        <span id="modal-year"></span>
+                        <span id="modal-type"></span>
+                        <span id="modal-genre"></span>
+                    </div>
+
+
+                    <div class="modal-section">
+
+                        <h3>Synopsis</h3>
+
+                        <p id="modal-synopsis"></p>
+
+                    </div>
+
+
+                    <div class="modal-section">
+
+                        <h3>Actors</h3>
+
+                        <p id="modal-actors"></p>
+
+                    </div>
+
+
+                    <div class="movie-buttons">
+
+                        <button
+                            class="watch-btn"
+                            id="modal-trailer"
+                        >
+                             Trailer
+                        </button>
+
+                        <button
+                            class="watch-btn"
+                            id="modal-watch"
+                        >
+                             Where to Watch
+                        </button>
+
+                        <button
+                            class="save-btn"
+                            id="modal-watchlist"
+                        >
+                             Watchlist
+                        </button>
+
+                        <button
+                            class="fav-btn"
+                            id="modal-favorite"
+                        >
+                             Favorite
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
     <!-- Hero Section -->
     <section class="hero">
         <div class="content">
-            <h1>Unlimited Movies, TV Shows and More</h1>
-            <p>Watch anywhere. Cancel anytime.</p>
-            <button>Watch Now</button>
+            <h1>Your Movie Night Start Here</h1>
+            <p>Discover movies and series across your favorite genres, find something you'll love, and keep track of what you want to watch next.</p>
+            <button><a href="#monnie">Explore Movies</a></button>
         </div>
     </section>
 
@@ -128,10 +290,22 @@
             <div class="box" data-genre="Animation">Animation</div>
             <div class="box" data-genre="Romance">Romance</div>
             <div class="box" data-genre="Mystery">Mystery</div>
+            <div class="box" data-genre="Crime">Crime</div>
+            <div class="box" data-genre="Thriller">Thriller</div>
+            
 
         </div>
     </section>
 
+    <div class="search-box">
+        <input
+            type="text"
+            id="search-input"
+            placeholder="Search movies or series..."
+        >
+
+        <button id="search-btn"></button>
+    </div>
     <!-- Popular Movies -->
     <section class="movies" id="monnie">
         <h2>All Films</h2>
@@ -144,7 +318,129 @@
 
         </div>
     </section>
+    <!-- EDIT MOVIE MODAL -->
 
+    <div class="edit-modal-wrapper" id="edit-modal-wrapper">
+
+        <div class="edit-modal">
+
+            <button
+                type="button"
+                class="edit-modal-close"
+                id="edit-modal-close"
+            >
+                &times;
+            </button>
+
+            <h2>Edit Movie</h2>
+
+            <form id="editMovieForm">
+
+                <input
+                    type="hidden"
+                    id="edit-movie-id"
+                >
+
+                <div class="input-group">
+                    <label>Title</label>
+
+                    <input
+                        type="text"
+                        id="edit-title"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label>Genre</label>
+
+                    <input
+                        type="text"
+                        id="edit-genre"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label>Year</label>
+
+                    <input
+                        type="number"
+                        id="edit-year"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label>Type</label>
+
+                    <select id="edit-type">
+
+                        <option value="Movie">
+                            Movie
+                        </option>
+
+                        <option value="Series">
+                            Series
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Synopsis</label>
+
+                    <textarea
+                        id="edit-synopsis"
+                        rows="5"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Actors</label>
+
+                    <input
+                        type="text"
+                        id="edit-actors"
+                        placeholder="Actor 1, Actor 2, Actor 3"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Replace Poster</label>
+
+                    <input
+                        type="file"
+                        id="edit-poster"
+                        accept="image/*"
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="save-edit-btn"
+                >
+                    Save Changes
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
    
     <script src="index.js"></script>
 </body>

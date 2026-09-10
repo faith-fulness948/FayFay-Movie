@@ -16,7 +16,7 @@ async function loadUser() {
         const data = await res.json();
         
         if (!data.success) {
-            
+            alert("Please verify your account")
             window.location.href = "/index.html";
             return;
             

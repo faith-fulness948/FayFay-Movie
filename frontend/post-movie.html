@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Post Movie | FayFay Movie</title>
+
+    <link rel="stylesheet" href="post-movie.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                Movie
+            </div>
+
+            <!-- Hamburger -->
+            <button class="menu-toggle" id="menu-toggle" aria-label="Open menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+
+            <!-- Navigation -->
+            <ul class="nav-links" id="nav-menu">
+
+                <li>
+                    <a href="/index.html">Home</a>
+                </li>
+
+                <li>
+                    <a href="/index.html#monnie">Films</a>
+                </li>
+
+                <li>
+                    <a href="/index.html#series">Series</a>
+                </li>
+
+                <li>
+                    <a href="/index.html#movies">Movies</a>
+                </li>
+
+                <li>
+                    <a href="/dashboard.html">Dashboard</a>
+                </li>
+
+            </ul>
+
+
+            <!-- Admin -->
+            <div class="admin-name">
+                Admin
+            </div>
+
+        </nav>
+    </header>
+
+
+    <!-- MAIN -->
+    <main class="post-container">
+
+        <div class="post-card">
+
+            <!-- Heading -->
+            <div class="heading">
+
+                <h1>Post a Movie</h1>
+
+                <p>
+                    Add a new movie or series to FayFay Movie.
+                </p>
+
+            </div>
+
+
+            <!-- FORM -->
+            <form id="movieForm">
+
+
+                <!-- TITLE -->
+                <div class="form-group">
+
+                    <label for="title">
+                        Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="e.g. Interstellar"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- TYPE -->
+                <div class="form-group">
+
+                    <label for="type">
+                        Type
+                    </label>
+
+                    <select id="type" required>
+
+                        <option value="">
+                            Select type
+                        </option>
+
+                        <option value="Movie">
+                            Movie
+                        </option>
+
+                        <option value="Series">
+                            Series
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- GENRE -->
+                <div class="form-group">
+
+                    <label for="genre">
+                        Genre
+                    </label>
+
+                    <select id="genre" required>
+
+                        <option value="">
+                            Select genre
+                        </option>
+
+                        <option value="Action">
+                            Action
+                        </option>
+
+                        <option value="Adventure">
+                            Adventure
+                        </option>
+
+                        <option value="Animation">
+                            Animation
+                        </option>
+
+                        <option value="Comedy">
+                            Comedy
+                        </option>
+
+                        <option value="Drama">
+                            Drama
+                        </option>
+
+                        <option value="Horror">
+                            Horror
+                        </option>
+
+                        <option value="Mystery">
+                            Mystery
+                        </option>
+                        <option value="Crime">
+                            Crime
+                        </option>
+
+                        <option value="Romance">
+                            Romance
+                        </option>
+
+                        <option value="Sci-Fi">
+                            Sci-Fi
+                        </option>
+
+                        <option value="Thriller">
+                            Thriller
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- YEAR -->
+                <div class="form-group">
+
+                    <label for="year">
+                        Release Year
+                    </label>
+
+                    <input
+                        type="number"
+                        id="year"
+                        placeholder="e.g. 2024"
+                        min="1900"
+                        required
+                    >
+
+                </div>
+
+                <!-- POSTER -->
+                <div class="form-group">
+
+                    <label for="poster">
+                        Movie Poster
+                    </label>
+
+                    <input
+                        type="file"
+                        id="poster"
+                        accept="image/*"
+                        required
+                    >
+
+                    <small>
+                        Upload a poster image. Maximum file size: 5MB.
+                    </small>
+
+                </div>
+                <!-- ACTORS -->
+                <div class="form-group">
+
+                    <label for="actors">
+                        Actors
+                    </label>
+
+                    <input
+                        type="text"
+                        id="actors"
+                        placeholder="e.g. Tom Holland, Zendaya"
+                        required
+                    >
+
+                    <small>
+                        Separate multiple actors with commas.
+                    </small>
+
+                </div>
+
+
+                <!-- SYNOPSIS -->
+                <div class="form-group">
+
+                    <label for="synopsis">
+                        Synopsis
+                    </label>
+
+                    <textarea
+                        id="synopsis"
+                        maxlength="500"
+                        placeholder="Write a short description..."
+                        required
+                    ></textarea>
+
+                    <small>
+                        Maximum 500 characters.
+                    </small>
+
+                </div>
+
+
+                <!-- SUBMIT -->
+                <button
+                    type="submit"
+                    class="post-btn"
+                    id="post-btn"
+                >
+                    Post Movie
+                </button>
+
+
+                <!-- MESSAGE -->
+                <p
+                    id="message"
+                    class="message"
+                ></p>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <script src="post-movie.js"></script>
+
+</body>
+
+</html>

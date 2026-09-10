@@ -1,4 +1,19 @@
+let currentUser = null;
+const menuToggle = document.getElementById("menu-toggle");
+const navMenu = document.getElementById("nav-menu");
+
+menuToggle.addEventListener("click", () => {
+
+    navMenu.classList.toggle("active");
+
+});
+
 let allMovies = []
+
+document.getElementById("films-link").addEventListener("click", () => {
+    displayMovies(allMovies);
+});
+
 const fetchMovies = async () => {
   const loading = document.getElementById("loading");
   const loadError = document.getElementById("loadError");
@@ -23,8 +38,6 @@ const fetchMovies = async () => {
     allMovies = data?.data?.movies || [];
     const titles = allMovies.map(movie => movie.title);
 
-    console.log(titles);
-
     // Display everything initially
     displayMovies(allMovies);
 
@@ -38,67 +51,340 @@ const fetchMovies = async () => {
 };
 
 function displayMovies(movies) {
-  const movieContainer = document.querySelector("#movieContainer");
+
+    const movieContainer = document.querySelector("#movieContainer");
+
+
+    if (!movies.length) {
+
+        movieContainer.innerHTML = `
+            <p class="no-movies">
+                No movies found.
+            </p>
+        `;
+
+        return;
+    }
+
 
     movieContainer.innerHTML = movies.map(movie => `
-        <div class="card">
 
-            <img src="${movie.poster}" alt="${movie.title}">
+        <article
+            class="card movie-card"
+            data-id="${movie._id}"
+        >
 
-            <span class="movie-year">${movie.year}</span>
+            <div class="poster-container">
 
-            <h3>${movie.title}</h3>
+                ${
+                    movie.poster
+                    ? `
+                        <img
+                            src="${movie.poster}"
+                            alt="${movie.title} poster"
+                            loading="lazy"
+                        >
+                    `
+                    : `
+                        <div class="poster-placeholder">
+                            No Poster
+                        </div>
+                    `
+                }
 
-            <p>${movie.genre}</p>
-
-            <p>${movie.type}</p>
-
-            <p>${movie.synopsis}</p>
-
-            <p>
-                <strong>Actors:</strong>
-                ${movie.actors.join(", ")}
-            </p>
-
-            <div class="movie-buttons">
-
-                <button
-                    class="watch-btn"
-                    onclick="watchTrailer('${movie.title}')">
-
-                    ▶ Trailer
-
-                </button>
-
-                <button
-                    class="watch-btn"
-                    onclick="whereToWatch('${movie.title}')">
-
-                    📺 Where to Watch
-
-                </button>
-
-                <button
-                    class="save-btn"
-                    onclick="addToWatchlist('${movie._id}')">
-
-                    ⭐ Watchlist
-
-                </button>
-
-                <button
-                    class="fav-btn"
-                    onclick="addToFavorites('${movie._id}')">
-
-                    ❤️ Favorite
-
-                </button>
+                <span class="movie-year">
+                    ${movie.year}
+                </span>
 
             </div>
-    
-        </div>
+
+
+            <div class="card-info">
+
+              <h3>
+                ${movie.title}
+              </h3>
+
+              <p>
+                ${movie.genre} • ${movie.type}
+              </p>
+
+              ${
+                currentUser?.role === "admin"
+                ?` 
+                  <div class = "admin-movie-buttons">
+                    <button class="edit-movie-btn" data-id="${movie._id}">
+                     Edit
+                    </button>
+                    <button class="delete-movie-btn" data-id="${movie._id}">
+                     Delete
+                    </button>
+                  </div>
+                `
+                : ""
+              }
+
+
+            </div>
+
+        </article>
+
     `).join("");
+
+
+    // Add click event to every movie card
+
+    const movieCards = document.querySelectorAll(".movie-card");
+
+
+    movieCards.forEach(card => {
+
+        card.addEventListener("click", () => {
+
+            const movieId =
+                card.dataset.id;
+
+
+            const movie =
+                allMovies.find(
+                    movie => movie._id === movieId
+                );
+
+
+            if (movie) {
+
+                openMovieModal(movie);
+
+            }
+
+        });
+
+        document.querySelectorAll(".edit-movie-btn").forEach(button => {
+
+            button.addEventListener("click", (e) => {
+
+                e.stopPropagation();
+
+                const movieId = button.dataset.id;
+
+                const movie = allMovies.find(
+                    movie => movie._id === movieId
+                );
+
+                if (movie) {
+                    openEditMovieModal(movie);
+                }
+
+            });
+
+        });
+
+
+        document.querySelectorAll(".delete-movie-btn").forEach(button => {
+
+            button.addEventListener("click", async (e) => {
+
+                e.stopPropagation();
+
+                const movieId = button.dataset.id;
+
+                await deleteMovie(movieId);
+
+            });
+
+        }); 
+
+    });
+
 }
+
+const movieModalWrapper =
+    document.querySelector("#movie-modal-wrapper");
+
+const movieModalClose =
+    document.querySelector("#movie-modal-close");
+
+const modalPoster =
+    document.querySelector("#modal-poster");
+
+const modalTitle =
+    document.querySelector("#modal-title");
+
+const modalYear =
+    document.querySelector("#modal-year");
+
+const modalType =
+    document.querySelector("#modal-type");
+
+const modalGenre =
+    document.querySelector("#modal-genre");
+
+const modalSynopsis =
+    document.querySelector("#modal-synopsis");
+
+const modalActors =
+    document.querySelector("#modal-actors");
+
+const modalTrailer =
+    document.querySelector("#modal-trailer");
+
+const modalWatch =
+    document.querySelector("#modal-watch");
+
+const modalWatchlist =
+    document.querySelector("#modal-watchlist");
+
+const modalFavorite =
+    document.querySelector("#modal-favorite");
+
+
+let selectedMovie = null;
+
+
+function openMovieModal(movie) {
+
+    selectedMovie = movie;
+
+
+    modalPoster.src =
+        movie.poster || "";
+
+
+    modalPoster.alt =
+        `${movie.title} poster`;
+
+
+    modalTitle.textContent =
+        movie.title;
+
+
+    modalYear.textContent =
+        movie.year;
+
+
+    modalType.textContent =
+        movie.type;
+
+
+    modalGenre.textContent =
+        movie.genre;
+
+
+    modalSynopsis.textContent =
+        movie.synopsis || "No synopsis available.";
+
+
+    modalActors.textContent =
+        movie.actors?.join(", ") ||
+        "No actors listed.";
+
+
+    movieModalWrapper.style.display =
+        "flex";
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+modalTrailer.addEventListener("click", () => {
+
+    if (!selectedMovie) return;
+
+    watchTrailer(selectedMovie.title);
+
+});
+
+
+modalWatch.addEventListener("click", () => {
+
+    if (!selectedMovie) return;
+
+    whereToWatch(selectedMovie.title);
+
+});
+
+
+modalWatchlist.addEventListener("click", () => {
+
+    if (!selectedMovie) return;
+
+    addToWatchlist(selectedMovie._id);
+
+});
+
+
+modalFavorite.addEventListener("click", () => {
+
+    if (!selectedMovie) return;
+
+    addToFavorites(selectedMovie._id);
+
+});
+
+function closeMovieModal() {
+
+    movieModalWrapper.style.display =
+        "none";
+
+    document.body.style.overflow =
+        "";
+
+    selectedMovie = null;
+
+}
+
+
+movieModalClose.addEventListener(
+    "click",
+    closeMovieModal
+);
+
+movieModalWrapper.addEventListener("click", (e) => {
+
+    if (e.target === movieModalWrapper) {
+
+        closeMovieModal();
+
+    }
+
+});
+
+document.addEventListener("keydown", (e) => {
+
+    if (
+        e.key === "Escape" &&
+        movieModalWrapper.style.display === "flex"
+    ) {
+
+        closeMovieModal();
+
+    }
+
+});
+
+const searchInput = document.querySelector("#search-input");
+const searchBtn = document.querySelector("#search-btn");
+
+function searchMovies() {
+
+    const searchTerm = searchInput.value
+        .toLowerCase()
+        .trim();
+
+    const filteredMovies = allMovies.filter(movie => {
+
+        const title = movie.title.toLowerCase();
+        return title.includes(searchTerm) 
+    });
+
+    displayMovies(filteredMovies);
+}
+
+searchInput.addEventListener("input", searchMovies);
+
+searchBtn.addEventListener("click", searchMovies);
 
 function watchTrailer(title) {
     const url = `https://www.youtube.com/results?search_query=${encodeURIComponent(title + " official trailer")}`;
@@ -145,7 +431,7 @@ seriesLink.addEventListener("click", () => {
 });
 
 
-document.addEventListener("DOMContentLoaded", fetchMovies)
+
 
 async function addToWatchlist(movieId){
 
@@ -268,6 +554,7 @@ loginForm.addEventListener("submit", async (e) => {
 
   if (data.success) {
     alert("Successfully logged in");
+    showLoggedInUser(data.data.user);
     loginForm.reset()
     
   } else {
@@ -275,6 +562,108 @@ loginForm.addEventListener("submit", async (e) => {
   }
 });
 
+const checkAuth = async () => {
+  try {
+    const response = await fetch(
+      "https://fayfay-movie.onrender.com/api/auth/me",
+      {
+        method: "GET",
+        credentials: "include"
+      }
+    );
+
+    if (!response.ok) {
+      showLoggedOutUser();
+      return;
+    }
+
+    const data = await response.json();
+    console.log("ME RESPONSE:", data);
+
+    if (data.success) {
+      showLoggedInUser(data.user);
+    } else {
+      showLoggedOutUser();
+    }
+
+  } catch (error) {
+    console.error("Auth check error:", error);
+    showLoggedOutUser();
+  }
+};
+
+const showLoggedInUser = (user) => {
+
+    currentUser = user;
+
+    document.getElementById("logged-out-buttons").style.display = "none";
+
+    document.getElementById("logged-in-user").style.display = "flex";
+
+    document.getElementById("nav-username").textContent =
+        `👤 ${user.username}`;
+
+    const dashboardLink =
+        document.getElementById("dashboard-link");
+
+    if (user.isVerified === true) {
+        dashboardLink.style.display = "block";
+    } else {
+        dashboardLink.style.display = "none";
+    }
+
+    const postMovieLink =
+        document.getElementById("post-movie-link");
+
+    if (user.role === "admin") {
+        postMovieLink.style.display = "block";
+    } else {
+        postMovieLink.style.display = "none";
+    }
+
+    // Refresh movie cards so admin buttons appear
+    displayMovies(allMovies);
+};
+
+const showLoggedOutUser = () => {
+
+   
+  document.getElementById("logged-out-buttons").style.display = "flex";
+
+  document.getElementById("logged-in-user").style.display = "none";
+  // Hide dashboard
+  document.getElementById("dashboard-link").style.display = "none";
+  // Hide admin link
+  document.getElementById("post-movie-link").style.display = "none";
+
+   currentUser = null;
+   displayMovies(allMovies)
+};
+
+document.getElementById("logout-btn").addEventListener("click", async () => {
+  try {
+    const response = await fetch(
+      "https://fayfay-movie.onrender.com/api/auth/logout",
+      {
+        method: "POST",
+        credentials: "include"
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      showLoggedOutUser();
+      alert("Logged out successfully");
+    }
+
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+
+  currentUser = null;
+  displayMovies(allMovies)
+});
 const loginPassword = document.querySelector("#password");
 const toggleLoginPassword = document.querySelector("#toggleLoginPassword");
 
@@ -471,72 +860,233 @@ signupCloseBtn.addEventListener("click", closeAllModals)
 const loginCloseBtn = document.querySelector("#loginCloseBtn");
 loginCloseBtn.addEventListener("click", closeAllModals)
 
-// Fetch movies
+document.addEventListener("DOMContentLoaded", () => {
+    fetchMovies();
+    checkAuth();
+});
 
-// const fetchMovies = async () => {
-//     try {
-//         const res = await fetch("http://localhost:3000/api/movies", {
-//             method: "GET",
-//             // credentials: "include",
-//             // headers: {
-//             //     "Content-type": "application/json"
-//             // }
-//         });
+const editModalWrapper =
+    document.querySelector("#edit-modal-wrapper");
 
-//         const data = await res.json();
+const editModalClose =
+    document.querySelector("#edit-modal-close");
 
-//         if(!res.ok){
-//             throw new Error(data.message);
-            
-//         }
-
-//         console.log(data.message);
-
-//         alert(data.message)
-        
-//     } catch (error) {
-//         console.error("Error:", error)
-//         alert("Error while fetching movies:", error.message || "Cannot fetch movies!")
-//     }
-// };
-
-// fetchMovies();
+const editMovieForm =
+    document.querySelector("#editMovieForm");
 
 
+function openEditMovieModal(movie) {
 
-// const signup = async (data) => {
-//     try {
-//         const res = await fetch("http://localhost:3000/api/auth/signup", {
-//             method: "POST",
-//             credentials: "include",
-//             headers: {
-//                 "Content-type": "application/json"
-//             },
-//             body: JSON.stringify(data),
-//         })
+    document.querySelector("#edit-movie-id").value =
+        movie._id;
 
-        
-//         const receive = await res.json();
-        
-//         if(!res.ok){
-//             throw new Error(receive.message);
-            
-//         }
-//         console.log(receive.message);
+    document.querySelector("#edit-title").value =
+        movie.title || "";
 
-//         // alert(receive.message)
+    document.querySelector("#edit-genre").value =
+        movie.genre || "";
 
-//     } catch (error) {
-//         console.error("Error:", error)
-//         alert("Error while signing up:", error || "Cannot signup!")
-//     }
-// };
+    document.querySelector("#edit-year").value =
+        movie.year || "";
 
-// const signupDetails = {
-//     username: "Adepeju",
-//     email: "ayodejiaronimo@gmail.com",
-//     password: "12345678",
-// }
+    document.querySelector("#edit-type").value =
+        movie.type || "Movie";
 
-// signup(signupDetails)
+    document.querySelector("#edit-synopsis").value =
+        movie.synopsis || "";
 
+    document.querySelector("#edit-actors").value =
+        movie.actors?.join(", ") || "";
+
+    document.querySelector("#edit-poster").value = "";
+
+    editModalWrapper.style.display = "flex";
+
+    document.body.style.overflow = "hidden";
+}
+
+editMovieForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const movieId = document.querySelector("#edit-movie-id").value;
+
+    const formData = new FormData();
+
+    formData.append(
+        "title",
+        document.querySelector("#edit-title").value.trim()
+    );
+
+    formData.append(
+        "genre",
+        document.querySelector("#edit-genre").value.trim()
+    );
+
+    formData.append(
+        "year",
+        document.querySelector("#edit-year").value
+    );
+
+    formData.append(
+        "type",
+        document.querySelector("#edit-type").value
+    );
+
+    formData.append(
+        "synopsis",
+        document.querySelector("#edit-synopsis").value.trim()
+    );
+
+    // Convert actors from:
+    // Actor 1, Actor 2, Actor 3
+    // into an array
+    const actors = document.querySelector("#edit-actors").value
+        .split(",")
+        .map(actor => actor.trim())
+        .filter(actor => actor !== "");
+
+    formData.append("actors", JSON.stringify(actors));
+
+    // Add poster ONLY if a new one was selected
+    const posterInput = document.querySelector("#edit-poster");
+
+    if (posterInput.files.length > 0) {
+        formData.append("poster", posterInput.files[0]);
+    }
+
+    try {
+        const response = await fetch(
+            `https://fayfay-movie.onrender.com/api/movies/${movieId}`,
+            {
+                method: "PUT",
+                credentials: "include",
+                body: formData
+            }
+        );
+
+        const data = await response.json();
+
+        console.log("UPDATE RESPONSE:", data);
+
+        if (!response.ok) {
+            alert(data.message || "Failed to update movie");
+            return;
+        }
+
+        alert("Movie updated successfully!");
+
+        // Update the movie in our local array
+        const index = allMovies.findIndex(
+            movie => movie._id === movieId
+        );
+
+        if (index !== -1) {
+            allMovies[index] = data.data.movie;
+        }
+
+        // Close edit modal
+        editModalWrapper.style.display = "none";
+        document.body.style.overflow = "";
+
+        // Refresh movie cards
+        displayMovies(allMovies);
+
+    } catch (error) {
+        console.error("Update movie error:", error);
+
+        alert("Something went wrong while updating the movie.");
+    }
+});
+
+editModalClose.addEventListener("click", () => {
+
+    editModalWrapper.style.display = "none";
+
+    document.body.style.overflow = "";
+
+});
+
+editModalWrapper.addEventListener("click", (e) => {
+
+    if (e.target === editModalWrapper) {
+
+        editModalWrapper.style.display = "none";
+
+        document.body.style.overflow = "";
+
+    }
+
+});
+
+editModalWrapper.addEventListener("click", (e) => {
+
+    if (e.target === editModalWrapper) {
+
+        editModalWrapper.style.display = "none";
+
+        document.body.style.overflow = "";
+
+    }
+
+});
+
+async function deleteMovie(movieId) {
+
+    const movie = allMovies.find(
+        movie => movie._id === movieId
+    );
+
+    if (!movie) return;
+
+
+    const confirmed = confirm(
+        `Are you sure you want to delete "${movie.title}"?`
+    );
+
+
+    if (!confirmed) return;
+
+
+    try {
+
+        const response = await fetch(
+            `https://fayfay-movie.onrender.com/api/movies/${movieId}`,
+            {
+                method: "DELETE",
+                credentials: "include"
+            }
+        );
+
+
+        const data = await response.json();
+
+
+        if (!response.ok) {
+
+            alert(data.message || "Failed to delete movie");
+
+            return;
+
+        }
+
+
+        alert("Movie deleted successfully!");
+
+
+        allMovies = allMovies.filter(
+            movie => movie._id !== movieId
+        );
+
+
+        displayMovies(allMovies);
+
+
+    } catch (error) {
+
+        console.error("Delete movie error:", error);
+
+        alert("Something went wrong while deleting the movie.");
+
+    }
+
+}

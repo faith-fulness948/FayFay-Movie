@@ -8,14 +8,147 @@
 :root {
     --primary-red: #e50914;
 }
-
+html {
+    scroll-behavior: smooth;
+}
 body{
     background:#111;
     color:white;
 }
 
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+    padding: 20px 8%;
+
+    background: rgba(0, 0, 0, 0.95);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+}
+
+
+/* Container for links + auth */
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+
+/* Navigation links */
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #e50914;
+}
+
+
+/* Authentication */
+
+.auth-section {
+    display: flex;
+    align-items: center;
+}
+
+
+/* Sign in / Sign up */
+
+#logged-out-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+
+/* Logged in */
+
+#logged-in-user {
+    align-items: center;
+    gap: 15px;
+}
+
+#nav-username {
+    color: white;
+    font-weight: 600;
+}
+
+
+/* Buttons */
+
+.btn {
+    padding: 10px 20px;
+
+    border: none;
+
+    background: #e50914;
+
+    color: white;
+
+    border-radius: 30px;
+
+    cursor: pointer;
+
+    font-size: 0.95rem;
+
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #b20710;
+    transform: translateY(-2px);
+}
+
+
+/* Hamburger */
+
+/* .menu-toggle {
+    display: none;
+
+    background: none;
+    border: none;
+
+    color: white;
+
+    font-size: 28px;
+
+    cursor: pointer;
+} */
+
 /* Navbar */
-nav{
+/* nav{
     position:fixed;
     width:100%;
     top:0;
@@ -62,7 +195,20 @@ nav button{
     cursor:pointer;
 }
 
+Hamburger */
 
+.menu-toggle {
+    display: none;
+
+    background: none;
+    border: none;
+
+    color: white;
+
+    font-size: 28px;
+
+    cursor: pointer;
+}
 /* Hero */
 .hero{
     min-height:100vh;
@@ -81,14 +227,15 @@ nav button{
 }
 
 .content h1{
-    font-size:4rem;
+    font-size:3rem;
     margin-bottom:20px;
 }
 
 .content p{
-    font-size:1.2rem;
+    font-size:1rem;
     margin-bottom:30px;
 }
+
 
 .content button{
     padding:15px 35px;
@@ -98,6 +245,11 @@ nav button{
     border-radius:40px;
     cursor:pointer;
     font-size:1rem;
+}
+
+.content button a {
+    text-decoration: none;
+    color: white;
 }
 .modal-wrapper {
     position: fixed;
@@ -621,7 +773,7 @@ small a {
 }
 /* Movies */
 .movies{
-    padding:100px 8%;
+    padding:30px 8% 70px;
 }
 
 .movies h2{
@@ -692,9 +844,69 @@ small a {
     margin: 5px;
 }
 
+/* =========================
+   SEARCH
+========================= */
+
+.search-box {
+    width: 100%;
+    max-width: 650px;
+    margin: 20px auto 45px;
+
+    display: flex;
+    align-items: center;
+
+    background: #1c1c1c;
+    border: 1px solid #333;
+    border-radius: 50px;
+
+    padding: 6px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.search-box input {
+    flex: 1;
+
+    background: transparent;
+    border: none;
+    outline: none;
+
+    color: white;
+    font-size: 16px;
+
+    padding: 15px 20px;
+}
+
+.search-box input::placeholder {
+    color: #f1ededb0;
+}
+
+.search-box button {
+    width: 50px; 
+    height: 50px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #e50914;
+    color: white;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.search-box button:hover {
+    background: #ff1a24;
+    transform: scale(1.05);
+}
+
 /* Categories */
  .categories{
-    padding:0 8% 100px;
+    padding:0 8% 30px;
 }
 
 .categories h2{
@@ -786,3 +998,1154 @@ small a {
     transform:scale(1.02);
 
 } 
+
+.auth-section {
+    display: flex;
+    align-items: center;
+}
+
+#logged-out-buttons,
+#logged-in-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#nav-username {
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+.logout-btn {
+    background: #e50914;
+}
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+    .navbar {
+        padding: 18px 5%;
+    }
+
+    .nav-menu {
+        gap: 20px;
+    }
+
+    .nav-links {
+        gap: 15px;
+    }
+}
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .navbar {
+        padding: 15px 5%;
+    }
+
+
+    /* Show hamburger */
+
+    .menu-toggle {
+        display: block;
+    }
+
+
+    /* Mobile dropdown */
+
+    .nav-menu {
+        position: absolute;
+
+        top: 100%;
+        left: 0;
+
+        width: 100%;
+
+        background: rgba(0, 0, 0, 0.98);
+
+        display: none;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 0;
+
+        padding: 20px 0;
+
+        border-top: 1px solid #333;
+    }
+
+
+    /* Menu opened */
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+
+    /* Navigation links */
+
+    .nav-links {
+        width: 100%;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 0;
+
+        text-align: center;
+    }
+
+
+    .nav-links li {
+        width: 100%;
+    }
+
+
+    .nav-links a {
+        display: block;
+
+        width: 100%;
+
+        padding: 15px;
+    }
+
+
+    .nav-links a:hover {
+        background: #1c1c1c;
+        color: #e50914;
+    }
+
+
+    /* Authentication section */
+
+    .auth-section {
+        width: 100%;
+
+        display: flex;
+
+        justify-content: center;
+
+        padding: 15px 0 5px;
+    }
+
+
+    #logged-out-buttons {
+        display: flex;
+
+        justify-content: center;
+
+        gap: 10px;
+    }
+
+
+    #logged-in-user {
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        gap: 15px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .search-box {
+        width: 90%;
+        margin: 30px auto 40px;
+    }
+
+    .search-box input {
+        font-size: 14px;
+        padding: 13px 15px;
+    }
+
+    .search-box button {
+        width: 45px;
+        height: 45px;
+        font-size: 17px;
+    }
+
+}
+
+/* =====================================================
+   MOVIE CARDS
+===================================================== */
+
+.movie-container {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(220px, 1fr)
+    );
+    gap: 25px;
+}
+
+
+.movie-card {
+    background: #1c1c1c;
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 0;
+
+    border-top: 4px solid #e50914;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.movie-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 15px 30px rgba(229, 9, 20, 0.3);
+}
+
+
+/* POSTER */
+
+.poster-container {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 2 / 3;
+
+    overflow: hidden;
+
+    background: #222;
+}
+
+
+.poster-container img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition: transform 0.4s ease;
+}
+
+
+.movie-card:hover
+.poster-container img {
+    transform: scale(1.04);
+}
+
+
+/* POSTER PLACEHOLDER */
+
+.poster-placeholder {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #888;
+
+    font-size: 14px;
+}
+
+
+/* YEAR */
+
+.poster-container .movie-year {
+    position: absolute;
+
+    top: 12px;
+    left: 12px;
+
+    background: #e50914;
+
+    color: white;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* CARD INFO */
+
+.card-info {
+    padding: 15px;
+}
+
+
+.card-info h3 {
+    margin: 0 0 8px;
+
+    padding: 0;
+
+    text-align: left;
+
+    font-size: 18px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.card-info p {
+    margin: 0;
+
+    padding: 0;
+
+    color: #aaa;
+
+    font-size: 14px;
+}
+
+/* =====================================================
+   MOVIE DETAILS MODAL
+===================================================== */
+
+.movie-modal-wrapper {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.85);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    z-index: 3000;
+
+    overflow-y: auto;
+}
+
+
+.movie-modal {
+    position: relative;
+
+    width: 100%;
+
+    max-width: 900px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: #1c1c1c;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.7);
+}
+
+
+.movie-modal-content {
+    display: grid;
+
+    grid-template-columns:
+        280px 1fr;
+
+    gap: 30px;
+
+    padding: 30px;
+}
+
+
+/* MODAL POSTER */
+
+.movie-modal-poster img {
+    width: 100%;
+
+    aspect-ratio: 2 / 3;
+
+    object-fit: cover;
+
+    display: block;
+
+    border-radius: 12px;
+}
+
+
+/* CLOSE BUTTON */
+
+.movie-modal-close {
+    position: absolute;
+
+    top: 12px;
+    right: 15px;
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, 0.7);
+
+    color: white;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    z-index: 2;
+
+    transition: 0.3s;
+}
+
+
+.movie-modal-close:hover {
+    background: #e50914;
+}
+
+
+/* DETAILS */
+
+.movie-modal-details {
+    padding: 10px 25px 10px 0;
+}
+
+
+.movie-modal-details h2 {
+    font-size: 2rem;
+
+    margin-bottom: 15px;
+}
+
+
+/* META */
+
+.modal-meta {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-bottom: 25px;
+}
+
+
+.modal-meta span {
+    background: #292929;
+
+    color: #ddd;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+}
+
+
+.modal-section {
+    margin-bottom: 20px;
+}
+
+
+.modal-section h3 {
+    color: #e50914;
+
+    font-size: 16px;
+
+    margin-bottom: 8px;
+}
+
+
+.modal-section p {
+    color: #ccc;
+
+    line-height: 1.7;
+
+    font-size: 14px;
+}
+
+
+/* MODAL BUTTONS */
+
+.movie-modal .movie-buttons {
+    padding: 10px 0 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+.movie-modal .movie-buttons button {
+    width: 100%;
+}
+
+.admin-movie-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.admin-movie-buttons button {
+    flex: 1;
+    padding: 9px;
+    border: none;
+    border-radius: 7px;
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.edit-movie-btn {
+    background: #333;
+}
+
+.edit-movie-btn:hover {
+    background: #555;
+}
+
+.delete-movie-btn {
+    background: #e50914;
+}
+
+.delete-movie-btn:hover {
+    background: #b20710;
+}
+
+.edit-modal-wrapper {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .85);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 5000;
+
+    overflow-y: auto;
+}
+
+.edit-modal {
+    position: relative;
+
+    width: 100%;
+    max-width: 600px;
+
+    max-height: 90vh;
+    overflow-y: auto;
+
+    background: #1c1c1c;
+
+    padding: 30px;
+
+    border-radius: 15px;
+}
+
+.edit-modal h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.edit-modal textarea,
+.edit-modal select {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #444;
+
+    background: #2a2a2a;
+
+    color: white;
+
+    border-radius: 8px;
+}
+
+.edit-modal textarea {
+    resize: vertical;
+}
+
+.edit-modal-close {
+    position: absolute;
+
+    right: 15px;
+    top: 10px;
+
+    background: none;
+
+    border: none;
+
+    color: white;
+
+    font-size: 28px;
+
+    cursor: pointer;
+}
+
+.save-edit-btn {
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #e50914;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+.save-edit-btn:hover {
+    background: #b20710;
+}
+
+@media (max-width: 700px) {
+
+    .movie-container {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 15px;
+    }
+
+
+    .card-info {
+        padding: 12px;
+    }
+
+
+    .card-info h3 {
+        font-size: 15px;
+    }
+
+
+    .card-info p {
+        font-size: 12px;
+    }
+
+
+    .movie-modal-wrapper {
+        padding: 15px;
+    }
+
+
+    .movie-modal {
+        max-height: 92vh;
+
+        border-radius: 15px;
+    }
+
+
+    .movie-modal-content {
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+
+        padding: 25px 20px;
+    }
+
+
+    .movie-modal-poster {
+        max-width: 230px;
+
+        width: 100%;
+
+        margin: 0 auto;
+    }
+
+
+    .movie-modal-details {
+        padding: 0;
+    }
+
+
+    .movie-modal-details h2 {
+        font-size: 1.5rem;
+
+        text-align: center;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .movie-container {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* =========================
+   EDIT MOVIE - RESPONSIVENESS
+========================= */
+
+@media (max-width: 768px) {
+    .edit-movie-wrapper {
+        padding: 15px;
+    }
+
+    .edit-movie-modal {
+        width: 100%;
+        max-width: 100%;
+        max-height: 92vh;
+        padding: 22px 18px;
+        border-radius: 12px;
+    }
+
+    .edit-movie-modal h2 {
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
+
+    .edit-movie-close {
+        top: 8px;
+        right: 10px;
+        font-size: 26px;
+    }
+
+    #edit-movie-form {
+        gap: 8px;
+    }
+
+    #edit-movie-form input,
+    #edit-movie-form select,
+    #edit-movie-form textarea {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    #edit-movie-form textarea {
+        min-height: 100px;
+    }
+
+    #edit-movie-form button {
+        padding: 11px;
+        font-size: 14px;
+    }
+
+    #edit-poster-status {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+}
+
+
+/* Small phones */
+@media (max-width: 480px) {
+    .edit-movie-wrapper {
+        padding: 10px;
+    }
+
+    .edit-movie-modal {
+        padding: 20px 14px;
+        max-height: 94vh;
+    }
+
+    .edit-movie-modal h2 {
+        font-size: 19px;
+        padding-right: 30px;
+    }
+
+    .edit-movie-close {
+        font-size: 24px;
+    }
+
+    #edit-movie-form label {
+        font-size: 13px;
+    }
+
+    #edit-movie-form input,
+    #edit-movie-form select,
+    #edit-movie-form textarea {
+        font-size: 13px;
+        padding: 9px;
+        border-radius: 6px;
+    }
+
+    #edit-movie-form textarea {
+        min-height: 90px;
+    }
+
+    #edit-movie-form button {
+        padding: 10px;
+        font-size: 13px;
+    }
+}
+
+/* =========================
+   LOGIN - FORGOT PASSWORD
+========================= */
+
+#modal-login .password-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#modal-login .password-label label {
+    margin-bottom: 8px;
+}
+
+#modal-login .forgot-password {
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #e50914;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#modal-login .forgot-password:hover {
+    color: #ff1a24;
+    text-decoration: underline;
+}
+
+#modal-login .password-container input {
+    padding-right: 45px;
+}
+
+
+/* =========================
+   FORGOT / RESET PASSWORD PAGES
+========================= */
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+    background:
+        linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .85)),
+        url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1600");
+    background-size: cover;
+    background-position: center;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 430px;
+    background: #1c1c1c;
+    color: white;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .5);
+}
+
+.auth-card h1,
+.auth-card h2 {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.auth-card > p {
+    text-align: center;
+    color: #aaa;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.auth-card input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #444;
+    background: #2a2a2a;
+    color: white;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+}
+
+.auth-card input:focus {
+    border-color: #e50914;
+}
+
+.auth-card button {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: #e50914;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: .3s ease;
+}
+
+.auth-card button:hover {
+    background: #b20710;
+    transform: translateY(-1px);
+}
+
+.auth-message {
+    min-height: 20px;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.auth-back {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #aaa;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.auth-back:hover {
+    color: #e50914;
+}
+
+
+/* =========================
+   AUTH PAGES - RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+    .auth-page {
+        padding: 20px 15px;
+    }
+
+    .auth-card {
+        padding: 30px 25px;
+        border-radius: 12px;
+    }
+
+    .auth-card h1,
+    .auth-card h2 {
+        font-size: 24px;
+    }
+
+    .auth-card input {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .auth-card button {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 400px) {
+    .auth-page {
+        padding: 15px 12px;
+    }
+
+    .auth-card {
+        padding: 25px 18px;
+    }
+
+    .auth-card h1,
+    .auth-card h2 {
+        font-size: 21px;
+    }
+
+    .auth-card > p {
+        font-size: 13px;
+    }
+
+    .auth-card input {
+        padding: 11px;
+        font-size: 13px;
+    }
+
+    .auth-card button {
+        padding: 11px;
+        font-size: 14px;
+    }
+
+    #modal-login .password-label {
+        align-items: flex-start;
+    }
+
+    #modal-login .forgot-password {
+        font-size: 12px;
+    }
+}
+
+/* =========================
+   LOGIN & SIGNUP RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .modal {
+        left: 50%;
+        right: auto;
+        bottom: auto;
+
+        width: 70%;
+        max-width: 500px;
+
+        transform: translate(-50%, 70px);
+    }
+
+    .popup-animate {
+        animation: modalTablet 0.5s ease forwards;
+    }
+
+    @keyframes modalTablet {
+        from {
+            transform: translate(-50%, 70px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translate(-50%, 0);
+            opacity: 1;
+        }
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .modal-wrapper {
+        padding: 15px;
+    }
+
+    .modal {
+        position: relative;
+
+        left: auto;
+        right: auto;
+        bottom: auto;
+
+        width: 100%;
+        max-width: 420px;
+
+        margin: 0 auto;
+
+        padding: 25px 20px;
+
+        border-radius: 12px;
+
+        transform: translateY(70px);
+    }
+
+    .popup-animate {
+        animation: modalMobile 0.5s ease forwards;
+    }
+
+    @keyframes modalMobile {
+        from {
+            transform: translateY(70px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .modal h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .input-group {
+        margin-bottom: 16px;
+    }
+
+    .input-group label {
+        font-size: 13px;
+    }
+
+    .input-group input {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .password-container input {
+        padding-right: 45px;
+    }
+
+    .modal button {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .close-btn {
+        right: 15px;
+        top: 10px;
+        font-size: 24px;
+    }
+
+    .small {
+        font-size: 12px;
+        text-align: center;
+        flex-wrap: wrap;
+    }
+}
+
+
+@media (max-width: 400px) {
+
+    .modal-wrapper {
+        padding: 10px;
+    }
+
+    .modal {
+        width: 100%;
+        padding: 22px 16px;
+    }
+
+    .modal h2 {
+        font-size: 20px;
+    }
+
+    .input-group input {
+        padding: 11px;
+        font-size: 13px;
+    }
+
+    .modal button {
+        padding: 11px;
+        font-size: 13px;
+    }
+}

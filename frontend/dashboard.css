@@ -251,3 +251,216 @@ body{
     }
 
 }
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 210px;
+        padding: 25px 15px;
+    }
+
+    .content {
+        margin-left: 210px;
+        padding: 30px 20px;
+    }
+
+    .sidebar a {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .logo {
+        font-size: 1.6rem;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .dashboard {
+        display: block;
+    }
+
+    /* Sidebar becomes top navigation */
+
+    .sidebar {
+        position:relative;
+        width:100%;
+        height:auto;
+        min-height:auto;
+
+        padding:15px;
+
+        overflow-x:auto;
+        overflow-y:hidden;
+    }
+
+    .logo {
+        font-size:1.5rem;
+        margin-bottom:15px;
+    }
+
+    .sidebar ul {
+        display:flex;
+        gap:8px;
+
+        overflow-x:auto;
+
+        padding-bottom:5px;
+    }
+
+    .sidebar li {
+        margin:0;
+        flex-shrink:0;
+    }
+
+    .sidebar a {
+        padding:10px 14px;
+        font-size:13px;
+        white-space:nowrap;
+    }
+
+
+    /* Main content */
+
+    .content {
+        margin-left:0;
+        padding:25px 15px;
+    }
+
+
+    /* Header */
+
+    .topbar {
+        margin-bottom:25px;
+    }
+
+    .topbar h1 {
+        font-size:1.5rem;
+    }
+
+    .topbar p {
+        font-size:14px;
+        line-height:1.5;
+    }
+
+
+    /* Search */
+
+    .search-section {
+        margin-bottom:25px;
+    }
+
+    .search-section input {
+        padding:13px;
+        font-size:14px;
+    }
+
+
+    /* Stats */
+
+    .stats {
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+        margin-bottom:35px;
+    }
+
+    .stat-card {
+        padding:18px;
+    }
+
+    .stat-card h3 {
+        font-size:13px;
+    }
+
+    .stat-card h2 {
+        font-size:1.5rem;
+    }
+
+
+    /* Section */
+
+    .section-title {
+        font-size:1.3rem;
+        margin-top:30px;
+    }
+
+
+    /* Movie row */
+
+    .movie-row {
+        gap:12px;
+        overflow-x:auto;
+        scroll-snap-type:x mandatory;
+    }
+
+
+    /* Movie cards */
+
+    .movie-card {
+        min-width:160px;
+        max-width:160px;
+
+        scroll-snap-align:start;
+    }
+
+    .movie-card img {
+        height:240px;
+    }
+
+    .movie-card h3 {
+        padding:10px;
+        font-size:14px;
+    }
+
+    .movie-card button {
+        width:90%;
+        margin:0 5% 12px;
+        padding:9px;
+        font-size:12px;
+    }
+
+}
+
+
+/* =========================
+   VERY SMALL PHONES
+========================= */
+
+@media (max-width: 400px) {
+
+    .content {
+        padding:20px 12px;
+    }
+
+    .stats {
+        grid-template-columns:1fr;
+    }
+
+    .movie-card {
+        min-width:145px;
+        max-width:145px;
+    }
+
+    .movie-card img {
+        height:215px;
+    }
+
+    .topbar h1 {
+        font-size:1.3rem;
+    }
+
+}
